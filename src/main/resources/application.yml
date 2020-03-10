@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: '101.37.29.47:6399'
+        heart-beat-timeout: 10000
+#      config:
+#        timeout: 10000
+#        server-addr: '101.37.29.47:6399'
+  application:
+    name: user-center
+
