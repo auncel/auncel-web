@@ -1,0 +1,15 @@
+package dev.yidafu.auncel.user.center;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+
+@ContextConfiguration
+@SpringBootTest
+class UserCenterApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}

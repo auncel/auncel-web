@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/user-center.iml" filepath="$PROJECT_DIR$/.idea/user-center.iml" />
+      <module fileurl="file://$PROJECT_DIR$/user-center-api/user-center-api.iml" filepath="$PROJECT_DIR$/user-center-api/user-center-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/user-center-biz/user-center-biz.iml" filepath="$PROJECT_DIR$/user-center-biz/user-center-biz.iml" />
+      <module fileurl="file://$PROJECT_DIR$/user-center-web/user-center-web.iml" filepath="$PROJECT_DIR$/user-center-web/user-center-web.iml" />
+    </modules>
+  </component>
+</project>
