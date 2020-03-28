@@ -13,7 +13,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="user-center" target="1.8" />
-      <module name="user-center-api" target="1.8" />
+      <module name="user-center-api" target="1.7" />
       <module name="user-center-biz" target="1.8" />
       <module name="user-center-web" target="1.8" />
     </bytecodeTargetLevel>
@@ -21,7 +21,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="user-center" options="-parameters" />
-      <module name="user-center-api" options="-parameters" />
+      <module name="user-center-api" options="-parameters -parameters" />
       <module name="user-center-biz" options="-parameters" />
       <module name="user-center-web" options="-parameters" />
     </option>

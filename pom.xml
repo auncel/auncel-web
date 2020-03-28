@@ -69,15 +69,12 @@
                     <mainClass>dev.yidafu.auncel.user.center.UserCenterApplication</mainClass>
                 </configuration>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-surefire-plugin</artifactId>-->
-<!--&lt;!&ndash;                https://stackoverflow.com/questions/46756533/execution-default-of-spring-boot-maven-plugin-repackage-failed&ndash;&gt;-->
-<!--                <configuration>-->
-<!--                    <skip>true</skip>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-surefire-plugin</artifactId>
+<!--                https://stackoverflow.com/questions/46756533/execution-default-of-spring-boot-maven-plugin-repackage-failed-->
+
+            </plugin>
         </plugins>
     </build>
-
 </project>
