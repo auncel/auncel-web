@@ -25,10 +25,10 @@
     <modules>
         <module>user-center-api</module>
 <!--        <module>user-center-deploy</module>-->
-<!--        <module>user-center-domain</module>-->
+        <module>user-center-domain</module>
         <module>user-center-biz</module>
 <!--        <module>user-center-dependency</module>-->
-<!--        <module>user-center-dal</module>-->
+        <module>user-center-dal</module>
 <!--        <module>user-center-config</module>-->
         <module>user-center-web</module>
     </modules>
@@ -66,14 +66,10 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+<!--                    https://blog.csdn.net/xuanmobaobao/article/details/88919525-->
+                    <classifier>execute</classifier>
                     <mainClass>dev.yidafu.auncel.user.center.UserCenterApplication</mainClass>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                 <artifactId>maven-surefire-plugin</artifactId>
-<!--                https://stackoverflow.com/questions/46756533/execution-default-of-spring-boot-maven-plugin-repackage-failed-->
-
             </plugin>
         </plugins>
     </build>

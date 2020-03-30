@@ -6,7 +6,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 @ContextConfiguration
 @SpringBootTest
-class UserCenterApplicationTests {
+class UserCenterWebApplicationTests {
 
 	@Test
 	void contextLoads() {

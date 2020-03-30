@@ -7,8 +7,8 @@
 		<artifactId>user-center</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>user-center-web</artifactId>
-	<name>user-center-web</name>
+	<artifactId>user-center-dal</artifactId>
+	<name>user-center-dal</name>
 
 	<dependencies>
 		<dependency>
@@ -27,7 +27,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 <!--		<dependency>-->
 <!--			<groupId>org.springframework.cloud</groupId>-->
 <!--			<artifactId>spring-cloud-starter-oauth2</artifactId>-->
@@ -54,6 +53,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>com.alibaba.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
@@ -75,30 +75,25 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
+<!--			<exclusions>-->
+<!--				<exclusion>-->
+<!--					<groupId>org.junit.vintage</groupId>-->
+<!--					<artifactId>junit-vintage-engine</artifactId>-->
+<!--				</exclusion>-->
+<!--			</exclusions>-->
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.junit.jupiter</groupId>-->
-<!--			<artifactId>junit-jupiter-api</artifactId>-->
-<!--			<version>${junit-jupiter.version}</version>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit-jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>dev.yidafu.auncel.user.center</groupId>
-			<artifactId>user-center-biz</artifactId>
+			<artifactId>user-center-domain</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>dev.yidafu.auncel.user.center</groupId>
-			<artifactId>user-center-dal</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+<!--			<scope>compile</scope>-->
 		</dependency>
 	</dependencies>
-
 </project>
