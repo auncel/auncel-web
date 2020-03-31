@@ -10,6 +10,13 @@
 	<artifactId>user-center-biz</artifactId>
 	<name>user-center-biz</name>
 
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -94,5 +101,12 @@
 			<version>0.0.1-SNAPSHOT</version>
 <!--			<scope>compile</scope>-->
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>dev.yidafu.auncel.user.center</groupId>
+            <artifactId>user-center-dal</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+    </dependencies>
 </project>

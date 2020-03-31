@@ -25,7 +25,7 @@ public class User extends BaseEntity {
     private String realname;
 
     @Lob
-    @Column(name="avatar", nullable = false, columnDefinition = "text")
+    @Column(name="avatar", columnDefinition = "text")
     private  String avatar;
 
     @Column(name = "role", columnDefinition = "int")

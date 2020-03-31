@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Data
@@ -18,13 +17,22 @@ public class UserAuth extends BaseEntity {
     @ManyToOne(optional =  false, fetch = FetchType.LAZY, targetEntity = User.class)
     private User authUser;
 
-    @Column(name = "identity_type")
+    /**
+     * 登录方式
+     */
+    @Column(name = "identity_type", nullable = false)
     private String identityType;
 
-    @Column(name = "identifier")
+    /**
+     * 登录名
+     */
+    @Column(name = "identifier", nullable = false)
     private String identifier;
 
-    @Column(name = "credential")
+    /**
+     * 凭证，如：密码
+     */
+    @Column(name = "credential", nullable = false)
     private String credential;
 
     @Column(name = "verified")

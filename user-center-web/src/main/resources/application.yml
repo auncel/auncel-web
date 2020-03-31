@@ -23,3 +23,7 @@ spring:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 #        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+auncel:
+  password: password
+  salt: d246ca5b089346e2
