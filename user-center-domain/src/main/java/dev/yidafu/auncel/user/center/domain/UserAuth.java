@@ -1,19 +1,22 @@
 package dev.yidafu.auncel.user.center.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class UserAuth {
+public class UserAuth extends BaseEntity {
 
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    @Column(name = "user_id", columnDefinition = "long")
-    private Long userId;
+    @JsonBackReference
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
+    @ManyToOne(optional =  false, fetch = FetchType.LAZY, targetEntity = User.class)
+    private User authUser;
 
     @Column(name = "identity_type")
     private String identityType;
@@ -26,47 +29,4 @@ public class UserAuth {
 
     @Column(name = "verified")
     private String verifiled;
-
-    public UserAuth() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public String getIdentityType() {
-        return identityType;
-    }
-
-    public String getCredential() {
-        return credential;
-    }
-
-    public String getVerifiled() {
-        return verifiled;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public void setIdentityType(String identityType) {
-        this.identityType = identityType;
-    }
-
-    public void setCredential(String credential) {
-        this.credential = credential;
-    }
-
-    public void setVerifiled(String verifiled) {
-        this.verifiled = verifiled;
-    }
 }
