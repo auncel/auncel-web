@@ -23,3 +23,6 @@ dubbo:
     port: -1
   registry:
     address: 'nacos://101.37.29.47:6399'
+  application:
+    version: 0.0.1
+    name: user-center

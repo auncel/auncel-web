@@ -79,27 +79,16 @@
 			<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-<!--			<exclusions>-->
-<!--				<exclusion>-->
-<!--					<groupId>org.junit.vintage</groupId>-->
-<!--					<artifactId>junit-vintage-engine</artifactId>-->
-<!--				</exclusion>-->
-<!--			</exclusions>-->
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>${junit-jupiter.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>dev.yidafu.auncel.user.center</groupId>
 			<artifactId>user-center-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 <!--			<scope>compile</scope>-->
+		</dependency>
+
+		<dependency>
+			<groupId>dev.yidafu.auncel.common</groupId>
+			<artifactId>common-service-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
         <dependency>
             <groupId>dev.yidafu.auncel.user.center</groupId>
@@ -107,6 +96,12 @@
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.14</version>
+		</dependency>
 
     </dependencies>
 </project>

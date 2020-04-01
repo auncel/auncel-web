@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b77a9c2e-9fd1-4ea1-a5fd-e6cba437edc6" name="Default Changelist" comment="feat: init JPA, 2 new module dal and domain">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-center-domain/src/main/java/dev/yidafu/auncel/user/center/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-center-domain/src/main/java/dev/yidafu/auncel/user/center/domain/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-center-domain/src/main/java/dev/yidafu/auncel/user/center/domain/UserAuth.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-center-domain/src/main/java/dev/yidafu/auncel/user/center/domain/UserAuth.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,13 +71,16 @@
     <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Project\user-center\user-center-biz\src" />
-      <recent name="D:\Project\user-center\target\dependency" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="dev.yidafu.auncel.user.center.biz.uuid" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Project\user-center" />
       <recent name="D:\Project\user-center\user-center-api\target" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Project\user-center\user-center-biz\src" />
+      <recent name="D:\Project\user-center\target\dependency" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -90,13 +90,26 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.UserCenterApplication">
+  <component name="RunManager" selected="Application.SessionIdGenerator">
     <configuration name="PasswordServiceImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="dev.yidafu.auncel.user.center.biz.PasswordServiceImpl" />
       <module name="user-center-biz" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="dev.yidafu.auncel.user.center.biz.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SessionIdGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="dev.yidafu.auncel.user.center.biz.uuid.SessionIdGenerator" />
+      <module name="user-center-biz" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dev.yidafu.auncel.user.center.biz.uuid.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -132,6 +145,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SessionIdGenerator" />
         <item itemvalue="Spring Boot.UserCenterApplication" />
         <item itemvalue="Application.PasswordServiceImpl" />
         <item itemvalue="Spring Boot.UserCenterApplication (1)" />
@@ -151,7 +165,7 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="Spring Boot" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="Running" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="Finished" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               </path>
             </expand>
             <select />
@@ -299,26 +313,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="923" y="193" key="FileChooserDialogImpl/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1585447431632" />
-    <state width="957" height="232" key="GridCell.Tab.0.bottom" timestamp="1585667394057">
+    <state width="1397" height="220" key="GridCell.Tab.0.bottom" timestamp="1585752269412">
       <screen x="1920" y="0" width="1440" height="860" />
     </state>
     <state width="1024" height="220" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1585623374933" />
-    <state width="957" height="232" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1585667394057" />
-    <state width="957" height="232" key="GridCell.Tab.0.center" timestamp="1585667394057">
+    <state width="1397" height="220" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1585752269412" />
+    <state width="1397" height="220" key="GridCell.Tab.0.center" timestamp="1585752269412">
       <screen x="1920" y="0" width="1440" height="860" />
     </state>
     <state width="1024" height="220" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1585623374933" />
-    <state width="957" height="232" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1585667394057" />
-    <state width="957" height="232" key="GridCell.Tab.0.left" timestamp="1585667394056">
+    <state width="1397" height="220" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1585752269412" />
+    <state width="1397" height="220" key="GridCell.Tab.0.left" timestamp="1585752269412">
       <screen x="1920" y="0" width="1440" height="860" />
     </state>
     <state width="1024" height="220" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1585623374933" />
-    <state width="957" height="232" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1585667394056" />
-    <state width="957" height="232" key="GridCell.Tab.0.right" timestamp="1585667394057">
+    <state width="1397" height="220" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1585752269412" />
+    <state width="1397" height="220" key="GridCell.Tab.0.right" timestamp="1585752269412">
       <screen x="1920" y="0" width="1440" height="860" />
     </state>
     <state width="1024" height="220" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1585623374933" />
-    <state width="957" height="232" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1585667394057" />
+    <state width="1397" height="220" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1585752269412" />
     <state width="957" height="232" key="GridCell.Tab.1.bottom" timestamp="1585667394057">
       <screen x="1920" y="0" width="1440" height="860" />
     </state>
@@ -359,10 +373,10 @@
     </state>
     <state width="1024" height="221" key="GridCell.Tab.2.right/0.0.1536.824/1920.0.1440.860@0.0.1536.824" timestamp="1585448819098" />
     <state width="957" height="232" key="GridCell.Tab.2.right/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1585645102575" />
-    <state x="2170" y="88" key="Maven.ArtifactSearchDialog" timestamp="1585642416669">
+    <state x="2170" y="88" key="Maven.ArtifactSearchDialog" timestamp="1585751066889">
       <screen x="1920" y="0" width="1440" height="860" />
     </state>
-    <state x="2170" y="88" key="Maven.ArtifactSearchDialog/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1585642416669" />
+    <state x="2170" y="88" key="Maven.ArtifactSearchDialog/0.0.1536.824/1920.0.1440.860@1920.0.1440.860" timestamp="1585751066889" />
     <state x="2268" y="15" width="992" height="708" key="SettingsEditor" timestamp="1585648078426">
       <screen x="1920" y="0" width="1440" height="860" />
     </state>
