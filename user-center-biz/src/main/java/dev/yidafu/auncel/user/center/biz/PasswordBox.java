@@ -1,7 +1,5 @@
 package dev.yidafu.auncel.user.center.biz;
 
-import dev.yidafu.auncel.user.center.api.common.ErrorCodes;
-import dev.yidafu.auncel.user.center.api.common.PlainResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
@@ -28,7 +26,6 @@ public class PasswordBox {
             System.out.println(err);
         }
         return Optional.empty();
-//        return (PlainResult<String>) PlainResult.error(ErrorCodes.REQUEST_FAILED, "加密失败");
     }
 
     public Optional<String> decode(String decodePassword) {
@@ -40,6 +37,5 @@ public class PasswordBox {
             System.out.println(err);
         }
         return Optional.empty();
-//        return (PlainResult<String>) PlainResult.error(ErrorCodes.REQUEST_FAILED, "解密失败");
     }
 }

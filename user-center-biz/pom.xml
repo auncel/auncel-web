@@ -10,12 +10,6 @@
 	<artifactId>user-center-biz</artifactId>
 	<name>user-center-biz</name>
 
-	<repositories>
-		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
-	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -82,7 +76,6 @@
 			<groupId>dev.yidafu.auncel.user.center</groupId>
 			<artifactId>user-center-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-<!--			<scope>compile</scope>-->
 		</dependency>
 
 		<dependency>
@@ -94,14 +87,12 @@
             <groupId>dev.yidafu.auncel.user.center</groupId>
             <artifactId>user-center-dal</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
-		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>1.14</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>apache-codec</groupId>-->
+<!--			<artifactId>commons-codec</artifactId>-->
+<!--			<version>1.2</version>-->
+<!--		</dependency>-->
 
-    </dependencies>
+	</dependencies>
 </project>
