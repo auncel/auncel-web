@@ -1,5 +1,6 @@
 package dev.yidafu.auncel.user.center.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +28,9 @@ public class User extends BaseEntity {
     @Lob
     @Column(name="avatar", columnDefinition = "text")
     private  String avatar;
+
+    @Column(name = "slogan", columnDefinition = "text")
+    private String slogan;
 
     @Column(name = "role", columnDefinition = "int")
     private Integer role;

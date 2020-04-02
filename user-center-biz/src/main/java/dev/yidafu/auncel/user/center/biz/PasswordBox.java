@@ -38,4 +38,10 @@ public class PasswordBox {
         }
         return Optional.empty();
     }
+
+    public Boolean matchs(String actualPass, String expectPass) {
+        String decodeActualPass = decode(actualPass).orElse("/<[]>\\");
+        String decodeExpectPass = decode(expectPass).orElse("[</\\>]");
+        return decodeActualPass.equals(decodeExpectPass);
+    }
 }

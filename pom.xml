@@ -22,20 +22,6 @@
         <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>alimaven</id>
-            <name>aliyun maven</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <modules>
         <module>user-center-api</module>
 <!--        <module>user-center-deploy</module>-->
@@ -76,7 +62,18 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>apache-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.1.0.jboss</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.dozermapper</groupId>
+                <artifactId>dozer-core</artifactId>
+                <version>6.5.0</version>
+            </dependency>
         </dependencies>
+
     </dependencyManagement>
 
     <build>

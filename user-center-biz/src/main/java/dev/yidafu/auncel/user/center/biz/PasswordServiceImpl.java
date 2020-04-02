@@ -34,9 +34,7 @@ public class PasswordServiceImpl implements PasswordService {
 
     @Override
     public PlainResult<Boolean> mathes(String actualPassword, String expectPassword) {
-        String actualResult = this.passwordBox.decode(actualPassword).orElse("actual");
-        String expectResult = this.passwordBox.decode(expectPassword).orElse("expect");
-        if (expectResult.equals(actualPassword)) {
+        if (passwordBox.matchs(actualPassword, expectPassword)) {
             return (PlainResult<Boolean>) PlainResult.make(true, "密码相同");
         }
         return (PlainResult<Boolean>) PlainResult.error(ErrorCodes.PASSWORD_INEQUAL, "密码不相同");

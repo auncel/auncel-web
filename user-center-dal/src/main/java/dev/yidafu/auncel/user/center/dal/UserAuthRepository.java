@@ -7,5 +7,5 @@ public interface UserAuthRepository extends JpaRepository<UserAuth, Long> {
     @Override
     UserAuth getOne(Long aLong);
 
-//    UserAuth findIdentityTypeAndIdentifier(String indentityType, String indentifier);
+    UserAuth findByIdentityTypeAndIdentifier(String indentityType, String indentifier);
 }
