@@ -1,12 +1,12 @@
 package dev.yidafu.auncel.user.center.biz;
 
-import dev.yidafu.auncel.common.api.response.PlainResult;
-import dev.yidafu.auncel.common.api.response.PlainResults;
-import dev.yidafu.auncel.common.api.SessionService;
+import dev.yidafu.auncel.user.center.common.response.PlainResult;
+import dev.yidafu.auncel.user.center.common.response.PlainResults;
+//import dev.yidafu.auncel.common.api.SessionService;
 import dev.yidafu.auncel.user.center.api.RegistrationService;
-import dev.yidafu.auncel.user.center.api.common.ErrorCodes;
-import dev.yidafu.auncel.user.center.api.common.IdentifierType;
-import dev.yidafu.auncel.user.center.api.dto.UserDTO;
+import dev.yidafu.auncel.user.center.common.ErrorCodes;
+import dev.yidafu.auncel.user.center.common.IdentifierType;
+import dev.yidafu.auncel.user.center.common.dto.UserDTO;
 import dev.yidafu.auncel.user.center.biz.uuid.SessionIdGenerator;
 import dev.yidafu.auncel.user.center.dal.UserAuthRepository;
 import dev.yidafu.auncel.user.center.dal.UserRepository;
@@ -14,7 +14,6 @@ import dev.yidafu.auncel.user.center.domain.User;
 import dev.yidafu.auncel.user.center.domain.UserAuth;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.dubbo.config.annotation.Reference;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,8 +34,8 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Autowired
     UserAuthRepository userAuthRepository;
 
-    @Reference
-    SessionService sesssionService;
+//    @Reference
+//    SessionService sesssionService;
 
     @Override
     public PlainResult<User> email(UserDTO userDTO) {
@@ -60,8 +59,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 
             String sessionId = seesionIdGenerator.getSessionId();
             logger.info("new SESSIONID: " + sessionId);
-            PlainResult<Boolean> result = sesssionService.create(sessionId, userDTO);
-            logger.info("sesssionService insert data: " + result);
+//            PlainResult<Boolean> result = sesssionService.create(sessionId, userDTO);
+//            logger.info("sesssionService insert data: " + result);
             return PlainResults.success(user, "注册用户成功");
         }
         return PlainResults.error(ErrorCodes.ALREADY_REGISTE, "该用户已经注册过了");

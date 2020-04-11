@@ -1,25 +1,20 @@
 package dev.yidafu.auncel.user.center.biz;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.yidafu.auncel.common.api.SessionService;
-import dev.yidafu.auncel.common.api.response.PlainResult;
-import dev.yidafu.auncel.common.api.response.PlainResults;
+import dev.yidafu.auncel.user.center.common.response.PlainResult;
+import dev.yidafu.auncel.user.center.common.response.PlainResults;
 import dev.yidafu.auncel.user.center.api.LoginService;
-import dev.yidafu.auncel.user.center.api.common.ErrorCodes;
-import dev.yidafu.auncel.user.center.api.common.RegisterType;
-import dev.yidafu.auncel.user.center.api.dto.UserDTO;
-import dev.yidafu.auncel.user.center.api.dto.UserResponseDTO;
+import dev.yidafu.auncel.user.center.common.RegisterType;
+import dev.yidafu.auncel.user.center.common.dto.UserDTO;
+import dev.yidafu.auncel.user.center.common.dto.UserResponseDTO;
 import dev.yidafu.auncel.user.center.biz.uuid.SessionIdGenerator;
+import dev.yidafu.auncel.user.center.common.ErrorCodes;
 import dev.yidafu.auncel.user.center.dal.UserAuthRepository;
 import dev.yidafu.auncel.user.center.domain.AuthLog;
 import dev.yidafu.auncel.user.center.domain.User;
 import dev.yidafu.auncel.user.center.domain.UserAuth;
-import netscape.javascript.JSObject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.dubbo.common.logger.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class LoginServiceImpl implements LoginService {

@@ -16,6 +16,12 @@
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>dev.yidafu.auncel.user.center</groupId>-->
+<!--			<artifactId>user-center-common</artifactId>-->
+<!--			<version>0.0.1-SNAPSHOT</version>-->
+<!--			<scope>compile</scope>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>dev.yidafu.auncel.common</groupId>
 			<artifactId>common-service-api</artifactId>

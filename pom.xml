@@ -23,12 +23,12 @@
     </properties>
 
     <modules>
-        <module>user-center-api</module>
-<!--        <module>user-center-deploy</module>-->
-        <module>user-center-domain</module>
+<!--        <module>user-center-api</module>-->
         <module>user-center-biz</module>
+        <module>user-center-common</module>
 <!--        <module>user-center-dependency</module>-->
         <module>user-center-dal</module>
+        <module>user-center-domain</module>
 <!--        <module>user-center-config</module>-->
         <module>user-center-web</module>
     </modules>
@@ -41,7 +41,11 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <scope>provided</scope>
+<!--            <scope>provided</scope>-->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
         </dependency>
     </dependencies>
 

@@ -23,6 +23,12 @@ spring:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 #        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  redis:
+    #        password: 123456
+    port: 6379
+    host: 49.234.72.82
+server:
+  port: 3100
 
 auncel:
   password: password

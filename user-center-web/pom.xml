@@ -106,16 +106,34 @@
 <!--			<version>${junit-jupiter.version}</version>-->
 <!--			<scope>test</scope>-->
 <!--		</dependency>-->
-
 		<dependency>
 			<groupId>dev.yidafu.auncel.user.center</groupId>
-			<artifactId>user-center-biz</artifactId>
+			<artifactId>user-center-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>dev.yidafu.auncel.user.center</groupId>-->
+<!--			<artifactId>user-center-biz</artifactId>-->
+<!--			<version>0.0.1-SNAPSHOT</version>-->
+<!--			<scope>compile</scope>-->
+<!--		</dependency>-->
+		<dependency>
+			<groupId>dev.yidafu.auncel.user.center</groupId>
+			<artifactId>user-center-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>dev.yidafu.auncel.user.center</groupId>
+			<artifactId>user-center-domain</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>dev.yidafu.auncel.user.center</groupId>
 			<artifactId>user-center-dal</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 
