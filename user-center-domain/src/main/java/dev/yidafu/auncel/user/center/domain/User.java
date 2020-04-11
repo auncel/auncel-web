@@ -66,4 +66,8 @@ public class User extends BaseEntity {
     @JoinColumn(name = "user_id")
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
     private List<UserAuth> userAuths = new ArrayList<UserAuth>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user",cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    private List<UserContest> userContests = new ArrayList<>();
 }
