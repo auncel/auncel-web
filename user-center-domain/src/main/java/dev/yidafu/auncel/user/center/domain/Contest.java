@@ -31,7 +31,7 @@ public class Contest extends BaseEntity {
     private String status;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(columnDefinition = "int default public")
+    @Column(columnDefinition = "int default 0")
     private ContestAccessType access = ContestAccessType.PUBLIC;
 
     @Column(name = "invitaion_code")
@@ -48,6 +48,10 @@ public class Contest extends BaseEntity {
 //    private List<Problem> Problems = new ArrayList<>();
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "contest",cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
-    private List<UserContest> userContests = new ArrayList<>();
+    @OneToMany(mappedBy = "contest")
+    private List<UserContest> userContests;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "contest")
+    private List<ContestProblem> contestProblems;
 }

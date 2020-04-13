@@ -15,12 +15,26 @@ import java.util.Date;
 public class UserContest {
     @Id
     @ManyToOne
-    @PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")
+    @PrimaryKeyJoinColumn(
+            name = "user_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "none",
+                    value = ConstraintMode.CONSTRAINT
+            )
+    )
     private User user;
 
     @Id
     @ManyToOne
-    @PrimaryKeyJoinColumn(name = "contest_id", referencedColumnName = "id")
+    @PrimaryKeyJoinColumn(
+            name = "contest_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(
+                    name = "none",
+                    value = ConstraintMode.CONSTRAINT
+            )
+    )
     private Contest contest;
 
     @Column(name = "total_score")

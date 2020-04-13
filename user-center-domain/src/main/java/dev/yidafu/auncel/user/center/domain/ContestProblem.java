@@ -10,12 +10,19 @@ import javax.persistence.*;
 public class ContestProblem {
     @Id
     @ManyToOne
-    @JoinColumn(name = "contest_id", referencedColumnName = "id")
+    @PrimaryKeyJoinColumn(
+            name = "contest_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "contest_id", value = ConstraintMode.NO_CONSTRAINT))
     private Contest contest;
 
     @Id
     @ManyToOne
-    @PrimaryKeyJoinColumn(name = "problem_id", referencedColumnName = "id")
+    @PrimaryKeyJoinColumn(
+            name = "problem_id",
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "problem_id", value = ConstraintMode.NO_CONSTRAINT)
+    )
     private Problem problem;
 
     @Column

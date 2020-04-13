@@ -17,7 +17,7 @@ public class BaseEntity  implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false, columnDefinition = "datetime default current_timestamp")

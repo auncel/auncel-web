@@ -54,4 +54,8 @@ public class Problem extends BaseEntity {
     @JoinColumn(name = "maker_id", referencedColumnName = "id", nullable = false, updatable = false)
     @ManyToOne(optional =  false, fetch = FetchType.LAZY, targetEntity = User.class)
     private User maker;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "problem",cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    private List<ContestProblem> contests = new ArrayList<>();
 }
