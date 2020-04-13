@@ -9,11 +9,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>dev.yidafu.auncel.user.center</groupId>
-    <artifactId>user-center</artifactId>
+    <groupId>dev.yidafu.auncel.web</groupId>
+    <artifactId>auncel-web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>user-center</name>
+    <name>auncel-web</name>
     <description>User Center: Everything About Users.</description>
 
     <properties>
@@ -23,14 +23,14 @@
     </properties>
 
     <modules>
-<!--        <module>user-center-api</module>-->
-        <module>user-center-biz</module>
-        <module>user-center-common</module>
-<!--        <module>user-center-dependency</module>-->
-        <module>user-center-dal</module>
-        <module>user-center-domain</module>
-<!--        <module>user-center-config</module>-->
-        <module>user-center-web</module>
+<!--        <module>auncel-web-api</module>-->
+        <module>auncel-web-biz</module>
+        <module>auncel-web-common</module>
+<!--        <module>auncel-web-dependency</module>-->
+        <module>auncel-web-dal</module>
+        <module>auncel-web-domain</module>
+<!--        <module>auncel-web-config</module>-->
+        <module>auncel-web-web</module>
     </modules>
 
     <dependencies>
@@ -88,7 +88,7 @@
                 <configuration>
 <!--                    https://blog.csdn.net/xuanmobaobao/article/details/88919525-->
                     <classifier>execute</classifier>
-                    <mainClass>dev.yidafu.auncel.user.center.UserCenterApplication</mainClass>
+                    <mainClass>dev.yidafu.auncel.web.UserCenterApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
