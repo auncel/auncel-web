@@ -1,5 +1,7 @@
 package dev.yidafu.auncel.user.center.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @IdClass(ContestProblemId.class)
 public class ContestProblem {
+    @JsonBackReference
     @Id
     @ManyToOne
     @PrimaryKeyJoinColumn(
@@ -16,6 +19,7 @@ public class ContestProblem {
             foreignKey = @ForeignKey(name = "contest_id", value = ConstraintMode.NO_CONSTRAINT))
     private Contest contest;
 
+    @JsonManagedReference
     @Id
     @ManyToOne
     @PrimaryKeyJoinColumn(

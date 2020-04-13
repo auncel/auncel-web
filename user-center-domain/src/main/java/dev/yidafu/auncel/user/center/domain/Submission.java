@@ -31,5 +31,4 @@ public class Submission extends BaseEntity {
     @JoinColumn(name = "problem_id", referencedColumnName = "id", nullable = false, updatable = false)
     @ManyToOne(optional =  false, fetch = FetchType.LAZY, targetEntity = Problem.class)
     private Problem problem;
-
 }

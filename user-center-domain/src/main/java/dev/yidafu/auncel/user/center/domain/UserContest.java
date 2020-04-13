@@ -1,5 +1,7 @@
 package dev.yidafu.auncel.user.center.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ import java.util.Date;
 @Entity
 @IdClass(UserContestId.class)
 public class UserContest {
+    @JsonBackReference
     @Id
     @ManyToOne
     @PrimaryKeyJoinColumn(
@@ -25,6 +28,7 @@ public class UserContest {
     )
     private User user;
 
+    @JsonBackReference
     @Id
     @ManyToOne
     @PrimaryKeyJoinColumn(

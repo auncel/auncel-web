@@ -30,32 +30,39 @@ public class Problem extends BaseEntity {
     private int stars;
 
     @Column
-    private String diffculty;
+    private String difficulty;
 
-    @Column
-    private int rate;
+    @Column(columnDefinition = "int default 0")
+    private int acceptance = 0;
+
+    @Column(columnDefinition = "int default 0")
+    private int submission = 0;
 
     @Enumerated(EnumType.ORDINAL)
     @Column
     private ProblemAccessType access;
 
     @JsonManagedReference
-    @JoinColumn(name = "problem_id")
-    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
-    private List<Tag> tags = new ArrayList<>();
+    @JoinTable(
+            name = "problem_tag",
+            joinColumns = @JoinColumn(name = "problem_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id")
+    )
+    @ManyToMany(targetEntity = Tag.class,cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    private List<Tag> tags;
 
 
-    @JsonManagedReference
-    @JoinColumn(name = "problem_id")
-    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
-    private List<Submission> submissions = new ArrayList<>();
+//    @JsonManagedReference
+//    @JoinColumn(name = "problem_id")
+//    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+//    private List<Submission> submissions = new ArrayList<>();
 
     @JsonBackReference
     @JoinColumn(name = "maker_id", referencedColumnName = "id", nullable = false, updatable = false)
     @ManyToOne(optional =  false, fetch = FetchType.LAZY, targetEntity = User.class)
     private User maker;
 
-    @JsonManagedReference
+    @JsonBackReference
     @OneToMany(mappedBy = "problem",cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
     private List<ContestProblem> contests = new ArrayList<>();
 }

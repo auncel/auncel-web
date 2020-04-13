@@ -1,5 +1,6 @@
 package dev.yidafu.auncel.user.center.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,7 @@ public class User extends BaseEntity {
 
     @Lob
     @Column(name="avatar", columnDefinition = "text")
-    private  String avatar;
+    private  String avatar = "http://www.gravatar.com/avatar/" + this.username + "?s=55&d=identicon&r=PG";
 
     @Column(name = "slogan", columnDefinition = "text")
     private String slogan;
@@ -62,6 +63,12 @@ public class User extends BaseEntity {
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
     private List<AuthLog> authLogs = new ArrayList<AuthLog>();
 
+
+    @JsonManagedReference
+    @JoinColumn(name = "maker_id")
+    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    private List<Problem> problems;
+
     @JsonManagedReference
     @JoinColumn(name = "user_id")
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
@@ -70,4 +77,5 @@ public class User extends BaseEntity {
     @JsonManagedReference
     @OneToMany(mappedBy = "user",cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
     private List<UserContest> userContests = new ArrayList<>();
+
 }
