@@ -1,0 +1,35 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: '101.37.29.47:6399'
+        heart-beat-timeout: 10000
+#      config:
+#        timeout: 10000
+#        server-addr: '101.37.29.47:6399'
+  application:
+    name: auncel-web
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/auncel_user?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: create
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  redis:
+    #        password: 123456
+    port: 6379
+    host: 49.234.72.82
+server:
+  port: 3100
+
+auncel:
+  password: password
+  salt: d246ca5b089346e2

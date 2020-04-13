@@ -1,6 +1,0 @@
-dubbo:
-  registry:
-    address: 'nacos://101.37.29.47:6399'
-  application:
-    name: user-center-comsumer
-    version: 0.0.1
