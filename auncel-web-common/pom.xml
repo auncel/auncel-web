@@ -10,11 +10,19 @@
 	<name>auncel-web-common</name>
 
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto -->
 		<dependency>
-			<groupId>dev.yidafu.auncel.common</groupId>
-			<artifactId>common-service-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+			<version>5.2.2.RELEASE</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.directory.studio/org.apache.commons.codec -->
+		<dependency>
+			<groupId>org.apache.directory.studio</groupId>
+			<artifactId>org.apache.commons.codec</artifactId>
+			<version>1.8</version>
+		</dependency>
+
 		<dependency>
 			<groupId>dev.yidafu.auncel.web</groupId>
 			<artifactId>auncel-web-domain</artifactId>

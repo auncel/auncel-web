@@ -16,14 +16,13 @@ import dev.yidafu.auncel.web.domain.UserAuth;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
-@RestController("/")
+@RestController("/user")
 public class UserController {
     public static Log logger = LogFactory.getLog(UserController.class);
 

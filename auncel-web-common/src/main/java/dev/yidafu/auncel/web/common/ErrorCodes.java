@@ -12,4 +12,6 @@ public class ErrorCodes {
     public static final int NOT_REGISTER = 10202;
     public static final int LOGIN_SUCCESS = 10203;
     public static final int PASSWORD_ERROR = 10204;
+
+    public static final int GET_FAILED = 10301;
 }
