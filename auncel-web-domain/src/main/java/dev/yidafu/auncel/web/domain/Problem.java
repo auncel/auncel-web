@@ -29,8 +29,9 @@ public class Problem extends BaseEntity {
     @Column
     private int stars;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column
-    private String difficulty;
+    private ProblemDifficulty difficulty;
 
     @Column(columnDefinition = "int default 0")
     private int acceptance = 0;
@@ -52,10 +53,10 @@ public class Problem extends BaseEntity {
     private List<Tag> tags;
 
 
-//    @JsonManagedReference
-//    @JoinColumn(name = "problem_id")
-//    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
-//    private List<Submission> submissions = new ArrayList<>();
+    @JsonManagedReference
+    @JoinColumn(name = "problem_id")
+    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    private List<Submission> submissions = new ArrayList<>();
 
     @JsonBackReference
     @JoinColumn(name = "maker_id", referencedColumnName = "id", nullable = false, updatable = false)

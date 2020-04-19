@@ -11,8 +11,8 @@ insert  into user_auth  (id, user_id, identifier, identity_type, credential, ver
 
 INSERT INTO contest(`id`, `created_at`, `clarification`, `end_time`, `invitaion_code`, `start_time`, `status`, `time_limit`, `title`, `maker_id`) VALUES (1, '2020-04-13 10:54:47', 'clearifaction', '2020-04-30 10:55:05', 'basababa', '2020-04-01 10:55:14', 'testing', 12345667, '公开题库', 1);
 
-insert into problem (id, title, description, q_html, q_css, render_tree, stars, difficulty, maker_id) values (1, "titile", "description", "<div></div>", "div { color: red; }", "{}", 1, "hard", 1);
-insert into problem (id, title, description, q_html, q_css, render_tree, stars, difficulty, maker_id) values (2, "titile", "description", "<div></div>", "div { color: red; }", "{}", 1, "hard", 1);
+insert into problem (id, title, description, q_html, q_css, render_tree, stars, difficulty, maker_id) values (1, "titile", "description", "<div></div>", "div { color: red; }", "{}", 1, 2, 1);
+insert into problem (id, title, description, q_html, q_css, render_tree, stars, difficulty, maker_id) values (2, "titile", "description", "<div></div>", "div { color: red; }", "{}", 1, 2, 1);
 
 insert into contest_problem (contest_id, problem_id, score) values (1, 2, 89);
 

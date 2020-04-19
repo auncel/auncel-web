@@ -1,4 +1,4 @@
-package dev.yidafu.auncel.web.Controller;
+package dev.yidafu.auncel.web.controller;
 
 import dev.yidafu.auncel.web.common.response.PlainResult;
 import dev.yidafu.auncel.web.common.response.PlainResults;
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 
 @RestController("/user")
 public class UserController {
@@ -104,8 +105,8 @@ public class UserController {
         return PlainResults.error(ResponseCodes.USER_NOT_EXIST, "用户不存在");
     }
 
-    @RequestMapping("/u/:username")
-    public PlainResult<UserResponseDTO> getInfo(Long userId) {
+    @RequestMapping("/u/:userId")
+    public PlainResult<UserResponseDTO> getInfo(@PathParam("userId") Long userId) {
         User user = userRepository.getOne(userId);
         if (user != null) {
             UserResponseDTO userResponseDTO = UserResponseDTO.merge(user);
