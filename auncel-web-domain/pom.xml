@@ -10,6 +10,7 @@
 	<artifactId>auncel-web-domain</artifactId>
 	<name>auncel-web-domain</name>
 
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -30,4 +31,46 @@
 			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>cz.habarta.typescript-generator</groupId>
+				<artifactId>typescript-generator-maven-plugin</artifactId>
+				<version>2.9.456</version>
+				<executions>
+					<execution>
+						<id>generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<phase>process-classes</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<mapEnum>asEnum</mapEnum>
+					<jsonLibrary>jackson2</jsonLibrary>
+					<classes>
+						<class>dev.yidafu.auncel.web.domain.User</class>
+						<class>dev.yidafu.auncel.web.domain.UserAuth</class>
+						<class>dev.yidafu.auncel.web.domain.AuthLog</class>
+						<class>dev.yidafu.auncel.web.domain.UserContest</class>
+						<class>dev.yidafu.auncel.web.domain.ProblemDifficulty</class>
+						<class>dev.yidafu.auncel.web.domain.Problem</class>
+						<class>dev.yidafu.auncel.web.domain.ProblemAccessType</class>
+						<class>dev.yidafu.auncel.web.domain.Contest</class>
+						<class>dev.yidafu.auncel.web.domain.ContestAccessType</class>
+						<class>dev.yidafu.auncel.web.domain.ContestProblem</class>
+						<class>dev.yidafu.auncel.web.domain.Notification</class>
+						<class>dev.yidafu.auncel.web.domain.NotificationLevel</class>
+						<class>dev.yidafu.auncel.web.domain.Submission</class>
+						<class>dev.yidafu.auncel.web.domain.Tag</class>
+						<class>dev.yidafu.auncel.web.domain.SubmissionStatus</class>
+					</classes>
+					<outputKind>module</outputKind>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
