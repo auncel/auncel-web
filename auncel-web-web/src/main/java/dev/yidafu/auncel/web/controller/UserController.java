@@ -1,9 +1,9 @@
 package dev.yidafu.auncel.web.controller;
 
+import dev.yidafu.auncel.web.common.md5.MD5Util;
 import dev.yidafu.auncel.web.common.response.PlainResult;
 import dev.yidafu.auncel.web.common.response.PlainResults;
 import dev.yidafu.auncel.web.common.IdentifierType;
-import dev.yidafu.auncel.web.common.PasswordBox;
 import dev.yidafu.auncel.web.common.RegisterType;
 import dev.yidafu.auncel.web.common.ResponseCodes;
 import dev.yidafu.auncel.web.common.dto.UserDTO;
@@ -16,14 +16,13 @@ import dev.yidafu.auncel.web.domain.UserAuth;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 
-@RestController("/user")
+@RestController()
+@RequestMapping("/user")
 public class UserController {
     public static Log logger = LogFactory.getLog(UserController.class);
 
@@ -36,15 +35,12 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    PasswordBox passwordBox;
-
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public PlainResult<UserResponseDTO> login(UserDTO userDTO, HttpSession session){
+    @PostMapping("/login")
+    public PlainResult<UserResponseDTO> login(@RequestBody  UserDTO userDTO, HttpSession session){
         UserAuth userAuthIfExist = userAuthRepository.findByIdentityTypeAndIdentifier(RegisterType.EMAIL, userDTO.getEmail());
         if (userAuthIfExist != null) {
             String expectPasswd = userAuthIfExist.getCredential();
-            Boolean match = passwordBox.matchs(userDTO.getPassword(), expectPasswd);
+            Boolean match = MD5Util.matches(userDTO.getPassword(), expectPasswd);
             if (match) {
                 User user = userAuthIfExist.getAuthUser();
                 logger.info("登录成功：" + user);
@@ -53,14 +49,14 @@ public class UserController {
                 return PlainResults.success(UserResponseDTO.merge(user), ResponseCodes.LOGIN_SUCCESS, "登录成功");
             } else {
                 logger.info("用户密码不正确: expectPassword: " + expectPasswd + ", actualPassword: " + userDTO.getPassword());
-                return PlainResults.error(ResponseCodes.PASSWORD_ERROR, "密码错误");
+                return PlainResults.error(ResponseCodes.PASSWORD_ERROR, "邮箱或密码错误");
             }
         }
         logger.info("用户未注册" + userDTO);
         return PlainResults.error(ResponseCodes.NOT_REGISTER, "账号未注册");
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @PostMapping("/register")
     public PlainResult<User> register(UserDTO userDTO, HttpSession session) {
         logger.info("邮箱注册:  " + userDTO);
         UserAuth userAuthIfExist = userAuthRepository.findByIdentityTypeAndIdentifier(
@@ -88,7 +84,7 @@ public class UserController {
         return PlainResults.error(ResponseCodes.ALREADY_REGISTE, "该用户已经注册过了");
     }
 
-    @RequestMapping(value = "/u/:username/profile", method = RequestMethod.PUT)
+    @PutMapping(value = "/u/profile")
     public PlainResult<Boolean> updateProfile(UserDTO userDTO) {
         Long userId = userDTO.getId();
         Boolean userExist = userRepository.existsById(userId);
@@ -105,12 +101,13 @@ public class UserController {
         return PlainResults.error(ResponseCodes.USER_NOT_EXIST, "用户不存在");
     }
 
-    @RequestMapping("/u/:userId")
-    public PlainResult<UserResponseDTO> getInfo(@PathParam("userId") Long userId) {
+    @GetMapping("/u/{userId}")
+    public PlainResult<User> getInfo(@PathVariable("userId") Long userId) {
+        logger.info("get user by id: " + userId);
         User user = userRepository.getOne(userId);
         if (user != null) {
-            UserResponseDTO userResponseDTO = UserResponseDTO.merge(user);
-            PlainResults.success(userResponseDTO, "获取用户信息成功");
+//            UserResponseDTO userResponseDTO = UserResponseDTO.merge(user);
+           return PlainResults.success(user, "获取用户信息成功");
         }
         return PlainResults.error(ResponseCodes.USER_NOT_EXIST, "用户不存在");
     }
