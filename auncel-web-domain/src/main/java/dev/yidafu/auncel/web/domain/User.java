@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer"})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -78,4 +80,18 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user",cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
     private List<UserContest> userContests = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", realname='" + realname + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", slogan='" + slogan + '\'' +
+                ", role=" + role +
+                ", status='" + status + '\'' +
+                ", registerTime=" + registerTime +
+                ", registerIp='" + registerIp + '\'' +
+                ", school='" + school + '\'' +
+                '}';
+    }
 }

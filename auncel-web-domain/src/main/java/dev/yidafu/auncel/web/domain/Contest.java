@@ -3,6 +3,7 @@ package dev.yidafu.auncel.web.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -54,4 +55,18 @@ public class Contest extends BaseEntity {
     @JsonManagedReference
     @OneToMany(mappedBy = "contest")
     private List<ContestProblem> contestProblems;
+
+    @Override
+    public String toString() {
+        return "Contest{" +
+                "title='" + title + '\'' +
+                ", clarification='" + clarification + '\'' +
+                ", startTiem=" + startTiem +
+                ", endTime=" + endTime +
+                ", timeLimit=" + timeLimit +
+                ", status='" + status + '\'' +
+                ", access=" + access +
+                ", invitaionCode='" + invitaionCode + '\'' +
+                '}';
+    }
 }

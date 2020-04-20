@@ -2,6 +2,7 @@ package dev.yidafu.auncel.web.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,4 +22,11 @@ public class Tag extends BaseEntity {
     )
     @ManyToMany(targetEntity = Problem.class, cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
     private List<Problem> problems;
+
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "value='" + value + '\'' +
+                '}';
+    }
 }

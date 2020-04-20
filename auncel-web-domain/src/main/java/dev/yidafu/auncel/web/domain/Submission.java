@@ -2,6 +2,7 @@ package dev.yidafu.auncel.web.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -31,4 +32,16 @@ public class Submission extends BaseEntity {
     @JoinColumn(name = "problem_id", referencedColumnName = "id", nullable = false, updatable = false)
     @ManyToOne(optional =  false, fetch = FetchType.LAZY, targetEntity = Problem.class)
     private Problem problem;
+
+    @Override
+    public String toString() {
+        return "Submission{" +
+                "aHtml='" + aHtml + '\'' +
+                ", aCss=" + aCss +
+                ", status='" + status + '\'' +
+                ", score=" + score +
+                ", logs='" + logs + '\'' +
+                ", screenshot='" + screenshot + '\'' +
+                '}';
+    }
 }

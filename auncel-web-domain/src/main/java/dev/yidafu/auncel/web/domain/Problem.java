@@ -3,6 +3,7 @@ package dev.yidafu.auncel.web.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -66,4 +67,21 @@ public class Problem extends BaseEntity {
     @JsonBackReference
     @OneToMany(mappedBy = "problem",cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
     private List<ContestProblem> contests = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Problem{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", qHtml='" + qHtml + '\'' +
+                ", qCss='" + qCss + '\'' +
+                ", renderTree='" + renderTree + '\'' +
+                ", stars=" + stars +
+                ", difficulty=" + difficulty +
+                ", acceptance=" + acceptance +
+                ", submission=" + submission +
+                ", access=" + access +
+                ", tags=" + tags +
+                '}';
+    }
 }

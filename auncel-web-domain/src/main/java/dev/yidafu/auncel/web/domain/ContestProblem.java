@@ -3,6 +3,7 @@ package dev.yidafu.auncel.web.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -31,4 +32,13 @@ public class ContestProblem {
 
     @Column
     private int score = 0;
+
+    @Override
+    public String toString() {
+        return "ContestProblem{" +
+                "contest=" + contest +
+                ", problem=" + problem +
+                ", score=" + score +
+                '}';
+    }
 }

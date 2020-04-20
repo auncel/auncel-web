@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import javax.persistence.*;
 
 @Data
@@ -39,4 +41,14 @@ public class UserAuth extends BaseEntity {
 
     @Column(name = "verified")
     private String verifiled;
+
+    @Override
+    public String toString() {
+        return "UserAuth{" +
+                "identityType='" + identityType + '\'' +
+                ", identifier='" + identifier + '\'' +
+                ", credential='" + credential + '\'' +
+                ", verifiled='" + verifiled + '\'' +
+                '}';
+    }
 }

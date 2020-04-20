@@ -3,6 +3,7 @@ package dev.yidafu.auncel.web.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -52,4 +53,16 @@ public class UserContest {
 
     @Column(name = "submit_time", columnDefinition = "datetime default current_timestamp")
     private Date submitTime = new Date();
+
+    @Override
+    public String toString() {
+        return "UserContest{" +
+                "user=" + user +
+                ", contest=" + contest +
+                ", totalScore=" + totalScore +
+                ", status='" + status + '\'' +
+                ", duration=" + duration +
+                ", submitTime=" + submitTime +
+                '}';
+    }
 }
