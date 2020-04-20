@@ -12,7 +12,7 @@ public class UserResponseDTO {
     private String slogan;
     private String email;
     private String github;
-    private String hdu;
+//    private String hdu;
 
     public static UserResponseDTO merge(UserResponseDTO userResponseDTO, User user) {
         userResponseDTO.setUsername(user.getUsername());

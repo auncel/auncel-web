@@ -2,12 +2,13 @@ package dev.yidafu.auncel.web.common.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serializable;
 
 @NoArgsConstructor
-
 @Data
+@ToString
 public class UserDTO implements Serializable {
     private  Long id;
     private String username;
