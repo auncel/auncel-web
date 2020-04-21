@@ -3,10 +3,8 @@ package dev.yidafu.auncel.web.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +18,7 @@ public class Contest extends BaseEntity {
     private String clarification;
 
     @Column(name = "start_time",nullable = true)
-    private Date startTiem;
+    private Date startTime;
 
     @Column(name = "end_time",nullable = true)
     private Date endTime;
@@ -28,8 +26,9 @@ public class Contest extends BaseEntity {
     @Column(name = "time_limit", columnDefinition = "int default 0")
     private int timeLimit = 0;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column
-    private String status;
+    private ContestStatus status;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(columnDefinition = "int default 0")
@@ -61,7 +60,7 @@ public class Contest extends BaseEntity {
         return "Contest{" +
                 "title='" + title + '\'' +
                 ", clarification='" + clarification + '\'' +
-                ", startTiem=" + startTiem +
+                ", startTiem=" + startTime +
                 ", endTime=" + endTime +
                 ", timeLimit=" + timeLimit +
                 ", status='" + status + '\'' +

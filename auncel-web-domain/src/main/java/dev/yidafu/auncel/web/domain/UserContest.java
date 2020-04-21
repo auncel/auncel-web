@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,7 +17,7 @@ import java.util.Date;
 @Data
 @Entity
 @IdClass(UserContestId.class)
-public class UserContest {
+public class UserContest  {
     @JsonBackReference
     @Id
     @ManyToOne
@@ -45,14 +47,20 @@ public class UserContest {
     @Column(name = "total_score")
     private int totalScore;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column
-    private String status;
+    private UserContestStatus status = UserContestStatus.UNANSWERED;
 
     @Column
     private int duration;
 
-    @Column(name = "submit_time", columnDefinition = "datetime default current_timestamp")
-    private Date submitTime = new Date();
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false, columnDefinition = "datetime default current_timestamp")
+    private Date updatedAt;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, columnDefinition = "datetime default current_timestamp")
+    private Date createdAt;
 
     @Override
     public String toString() {
@@ -62,7 +70,8 @@ public class UserContest {
                 ", totalScore=" + totalScore +
                 ", status='" + status + '\'' +
                 ", duration=" + duration +
-                ", submitTime=" + submitTime +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }

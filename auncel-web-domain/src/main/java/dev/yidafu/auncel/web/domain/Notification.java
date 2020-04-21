@@ -1,12 +1,10 @@
 package dev.yidafu.auncel.web.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -21,6 +19,11 @@ public class Notification extends  BaseEntity {
     @Enumerated(EnumType.ORDINAL)
     @Column
     private NotificationLevel level = NotificationLevel.NOTICE;
+
+    @JsonBackReference
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
+    @ManyToOne(optional =  false, fetch = FetchType.LAZY, targetEntity = User.class)
+    private User user;
 
     @Override
     public String toString() {

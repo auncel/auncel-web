@@ -1,8 +1,8 @@
 package dev.yidafu.auncel.web.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.github.dozermapper.core.Mapping;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +25,7 @@ public class User extends BaseEntity {
     @Column(name="username", nullable = false, length = 50)
     private String username;
 
+    @Mapping()
     @Column(name="realname", nullable = true, length = 50)
     private String realname;
 
@@ -41,9 +42,6 @@ public class User extends BaseEntity {
     @Column(name="status")
     private String status;
 
-    @CreatedDate
-    @Column(name = "register_time")
-    private Date registerTime;
     // https://stackoverflow.com/questions/197045/setting-default-values-for-columns-in-jpa
     @Column(name="register_ip", columnDefinition="varchar(15) default '0.0.0.0'")
     private String registerIp = "0.0.0.0";
@@ -74,11 +72,17 @@ public class User extends BaseEntity {
     @JsonManagedReference
     @JoinColumn(name = "user_id")
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
-    private List<UserAuth> userAuths = new ArrayList<UserAuth>();
+    private List<UserAuth> userAuths;
+
+    @JsonManagedReference
+    @JoinColumn(name = "user_id")
+    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    private List<Notification> notifications;
+
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user",cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
-    private List<UserContest> userContests = new ArrayList<>();
+    private List<UserContest> userContests;
 
     @Override
     public String toString() {
@@ -89,7 +93,6 @@ public class User extends BaseEntity {
                 ", slogan='" + slogan + '\'' +
                 ", role=" + role +
                 ", status='" + status + '\'' +
-                ", registerTime=" + registerTime +
                 ", registerIp='" + registerIp + '\'' +
                 ", school='" + school + '\'' +
                 '}';
