@@ -29,6 +29,11 @@ spring:
     host: 49.234.72.82
 server:
   port: 3100
+  servlet:
+    session:
+      timeout: 24h
+      cookie:
+        domain: "auncel.top"
 
 auncel:
   password: password
