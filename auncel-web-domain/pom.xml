@@ -55,17 +55,16 @@
 						<class>dev.yidafu.auncel.web.domain.UserAuth</class>
 						<class>dev.yidafu.auncel.web.domain.AuthLog</class>
 						<class>dev.yidafu.auncel.web.domain.UserContest</class>
-						<class>dev.yidafu.auncel.web.domain.ProblemDifficulty</class>
 						<class>dev.yidafu.auncel.web.domain.Problem</class>
-						<class>dev.yidafu.auncel.web.domain.ProblemAccessType</class>
 						<class>dev.yidafu.auncel.web.domain.Contest</class>
-						<class>dev.yidafu.auncel.web.domain.ContestAccessType</class>
 						<class>dev.yidafu.auncel.web.domain.ContestProblem</class>
 						<class>dev.yidafu.auncel.web.domain.Notification</class>
-						<class>dev.yidafu.auncel.web.domain.NotificationLevel</class>
 						<class>dev.yidafu.auncel.web.domain.Submission</class>
 						<class>dev.yidafu.auncel.web.domain.Tag</class>
-						<class>dev.yidafu.auncel.web.domain.SubmissionStatus</class>
+						<class>dev.yidafu.auncel.web.domain.dto.UserDto</class>
+						<class>dev.yidafu.auncel.web.domain.dto.UserContestDto</class>
+						<class>dev.yidafu.auncel.web.domain.dto.UserRequestDto</class>
+						<class>dev.yidafu.auncel.web.domain.dto.ContestDto</class>
 					</classes>
 					<outputKind>module</outputKind>
 				</configuration>
