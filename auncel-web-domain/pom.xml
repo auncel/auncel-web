@@ -62,9 +62,11 @@
 						<class>dev.yidafu.auncel.web.domain.Submission</class>
 						<class>dev.yidafu.auncel.web.domain.Tag</class>
 						<class>dev.yidafu.auncel.web.domain.dto.UserDto</class>
+						<class>dev.yidafu.auncel.web.domain.dto.SubmissionDto</class>
 						<class>dev.yidafu.auncel.web.domain.dto.UserContestDto</class>
 						<class>dev.yidafu.auncel.web.domain.dto.UserRequestDto</class>
 						<class>dev.yidafu.auncel.web.domain.dto.ContestDto</class>
+						<class>dev.yidafu.auncel.web.domain.dto.ProblemDto</class>
 					</classes>
 					<outputKind>module</outputKind>
 				</configuration>
