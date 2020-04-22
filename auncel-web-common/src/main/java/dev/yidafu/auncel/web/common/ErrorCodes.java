@@ -13,7 +13,9 @@ public class ErrorCodes {
     public static final int LOGIN_SUCCESS = 10203;
     public static final int PASSWORD_ERROR = 10204;
 
-    public static final int GET_FAILED = 10301;
+    public static final int USER_NOT_EXIST = 10301;
 
     public static final int ILLEGAL_USER_ID = 10401;
+
+    public static final int UNKNOWN_FAILED = 99999;
 }
