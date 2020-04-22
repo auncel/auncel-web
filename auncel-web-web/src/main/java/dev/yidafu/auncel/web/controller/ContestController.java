@@ -1,7 +1,7 @@
 package dev.yidafu.auncel.web.controller;
 
 import com.github.dozermapper.core.Mapper;
-import dev.yidafu.auncel.web.common.ResponseCodes;
+import dev.yidafu.auncel.web.common.ErrorCodes;
 import dev.yidafu.auncel.web.common.response.PlainResult;
 import dev.yidafu.auncel.web.common.response.PlainResults;
 import dev.yidafu.auncel.web.dal.UserRepository;
@@ -39,7 +39,7 @@ public class ContestController {
         logger.info("[var userIfExist] " + userIfExist);
 
         if (!userIfExist.isPresent()) {
-            return PlainResults.error(ResponseCodes.USER_NOT_EXIST, "用户不存在");
+            return PlainResults.error(ErrorCodes.USER_NOT_EXIST, "用户不存在");
         }
 
         User user = userIfExist.get();

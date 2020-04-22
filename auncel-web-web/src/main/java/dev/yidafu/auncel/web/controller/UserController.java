@@ -1,12 +1,12 @@
 package dev.yidafu.auncel.web.controller;
 
 import com.github.dozermapper.core.Mapper;
+import dev.yidafu.auncel.web.common.ErrorCodes;
 import dev.yidafu.auncel.web.common.md5.MD5Util;
 import dev.yidafu.auncel.web.common.response.PlainResult;
 import dev.yidafu.auncel.web.common.response.PlainResults;
 import dev.yidafu.auncel.web.domain.IdentifierType;
 import dev.yidafu.auncel.web.common.RegisterType;
-import dev.yidafu.auncel.web.common.ResponseCodes;
 import dev.yidafu.auncel.web.domain.dto.UserDto;
 import dev.yidafu.auncel.web.domain.dto.UserRequestDto;
 import dev.yidafu.auncel.web.common.utils.Utils;
@@ -35,15 +35,7 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping
-    public PlainResult<UserDto> getInfo(@RequestParam("id") Long userId, HttpSession session) {
-        logger.info("get user by id: " + userId);
-        User user = (User) session.getAttribute("user");
-        if (user != null) {
-            return PlainResults.success(mapper.map(user, UserDto.class), "获取用户信息成功");
-        }
-        return PlainResults.error(ResponseCodes.USER_NOT_EXIST, "用户不存在");
-    }
+
 
     @PostMapping("/login")
     public PlainResult<UserDto> login(@RequestBody UserRequestDto userDTO, HttpSession session){
@@ -56,14 +48,14 @@ public class UserController {
                 logger.info("登录成功：" + user);
                 session.setAttribute("user", user);
                 logger.info("Session 写入成功");
-                return PlainResults.success(mapper.map(user, UserDto.class), ResponseCodes.LOGIN_SUCCESS, "登录成功");
+                return PlainResults.success(mapper.map(user, UserDto.class), ErrorCodes.LOGIN_SUCCESS, "登录成功");
             } else {
                 logger.info("用户密码不正确: expectPassword: " + expectPasswd + ", actualPassword: " + userDTO.getPassword());
-                return PlainResults.error(ResponseCodes.PASSWORD_ERROR, "邮箱或密码错误");
+                return PlainResults.error(ErrorCodes.PASSWORD_ERROR, "邮箱或密码错误");
             }
         }
         logger.info("用户未注册" + userDTO);
-        return PlainResults.error(ResponseCodes.NOT_REGISTER, "账号未注册");
+        return PlainResults.error(ErrorCodes.NOT_REGISTER, "账号未注册");
     }
 
     @PostMapping("/register")
@@ -75,7 +67,7 @@ public class UserController {
         );
         User userIfExsit = userRepository.findByUsername(userRequestDto.getUsername());
         if (userAuthIfExist != null || userIfExsit != null) {
-            return PlainResults.error(ResponseCodes.ALREADY_REGISTE, "该用户已经注册过了");
+            return PlainResults.error(ErrorCodes.ALREADY_REGISTE, "该用户已经注册过了");
         }
 
         User user = new User();
@@ -113,8 +105,29 @@ public class UserController {
             userRepository.save(userWillUpdate);
             PlainResults.success(true, "用户信息更新成功");
         }
-        return PlainResults.error(ResponseCodes.USER_NOT_EXIST, "用户不存在");
+        return PlainResults.error(ErrorCodes.USER_NOT_EXIST, "用户不存在");
     }
 
+    @GetMapping
+    public PlainResult<UserDto> getInfo(@RequestParam("id") Long userId, HttpSession session) {
+        logger.info("get user by id: " + userId);
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            return PlainResults.success(mapper.map(user, UserDto.class), "获取用户信息成功");
+        }
+        return PlainResults.error(ErrorCodes.USER_NOT_EXIST, "用户不存在");
+    }
 
+    @PutMapping
+    public  PlainResult<Boolean> update(@RequestBody UserDto userDto) {
+        User user = new User();
+        user.setId(userDto.getId());
+        user.setUsername(userDto.getUsername());
+        user.setRealname(userDto.getRealname());
+        user.setSlogan(userDto.getSlogan());
+        user.setSchool(userDto.getSchool());
+        logger.info("[var User] " + user);
+        userRepository.save(user);
+        return PlainResults.success(true, "更新成功");
+    }
 }
