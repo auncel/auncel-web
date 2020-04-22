@@ -31,7 +31,7 @@ public class User extends BaseEntity {
 
     @Lob
     @Column(name="avatar", columnDefinition = "text")
-    private  String avatar = "http://www.gravatar.com/avatar/" + this.username + "?s=55&d=identicon&r=PG";
+    private  String avatar = "http://www.gravatar.com/avatar/" + this.username + "?s=200&d=identicon&r=PG";
 
     @Column(name = "slogan", columnDefinition = "text")
     private String slogan;
@@ -68,6 +68,12 @@ public class User extends BaseEntity {
     @JoinColumn(name = "maker_id")
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
     private List<Problem> problems;
+
+
+    @JsonManagedReference
+    @JoinColumn(name = "submiter_id")
+    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    private List<Submission> submissions;
 
     @JsonManagedReference
     @JoinColumn(name = "user_id")

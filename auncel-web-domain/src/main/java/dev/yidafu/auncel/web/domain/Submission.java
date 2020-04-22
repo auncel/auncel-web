@@ -12,12 +12,12 @@ public class Submission extends BaseEntity {
     @Column
     private String aHtml;
 
+    @Column
+    private  String aCss;
+
     @Enumerated(EnumType.ORDINAL)
     @Column
-    private  SubmissionStatus aCss = SubmissionStatus.PADDING;
-
-    @Column
-    private String status;
+    private SubmissionStatus status = SubmissionStatus.PADDING;
 
     @Column(columnDefinition = "int default 0")
     private int score = 0;
@@ -32,6 +32,10 @@ public class Submission extends BaseEntity {
     @JoinColumn(name = "problem_id", referencedColumnName = "id", nullable = false, updatable = false)
     @ManyToOne(optional =  false, fetch = FetchType.LAZY, targetEntity = Problem.class)
     private Problem problem;
+
+    @JoinColumn(name = "submiter_id", referencedColumnName = "id", nullable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, targetEntity = User.class)
+    private User submiter;
 
     @Override
     public String toString() {

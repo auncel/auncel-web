@@ -8,13 +8,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class ContestDto {
+public class ContestDto implements Serializable {
     private long id;
 
     private String title;
@@ -34,4 +35,6 @@ public class ContestDto {
     private String invitaionCode;
 
     private Date createdAt;
+
+    private Date updatedAt;
 }
