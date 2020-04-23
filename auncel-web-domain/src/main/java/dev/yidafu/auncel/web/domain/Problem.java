@@ -34,9 +34,15 @@ public class Problem extends BaseEntity {
     @Column
     private ProblemDifficulty difficulty;
 
+    /**
+     * 通过数
+     */
     @Column(columnDefinition = "int default 0")
     private int acceptance = 0;
 
+    /**
+     * 总提交数
+     */
     @Column(columnDefinition = "int default 0")
     private int submission = 0;
 

@@ -45,10 +45,13 @@ public class UserAuth extends BaseEntity {
     @Override
     public String toString() {
         return "UserAuth{" +
-                "identityType='" + identityType + '\'' +
+                "id='" + id + '\'' +
+                ", identityType='" + identityType + '\'' +
                 ", identifier='" + identifier + '\'' +
                 ", credential='" + credential + '\'' +
                 ", verifiled='" + verifiled + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
                 '}';
     }
 }

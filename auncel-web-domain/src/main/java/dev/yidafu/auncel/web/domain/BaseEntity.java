@@ -12,20 +12,20 @@ import java.util.Date;
 @MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
-public class BaseEntity  implements Serializable {
+public abstract class BaseEntity  implements Serializable {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    protected long id;
 
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false, columnDefinition = "datetime default current_timestamp")
-    private Date updatedAt;
+    protected Date updatedAt;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, columnDefinition = "datetime default current_timestamp")
-    private Date createdAt;
+    protected Date createdAt;
 
 //    @NotNull
 //    private Boolean deleted = false;

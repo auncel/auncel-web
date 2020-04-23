@@ -25,6 +25,6 @@ public class AuthLog extends BaseEntity {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "content")
+    @Column(name = "content", columnDefinition = "text")
     private String content;
 }

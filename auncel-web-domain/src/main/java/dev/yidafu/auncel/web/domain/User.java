@@ -17,8 +17,6 @@ import java.util.List;
 
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer"})
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class User extends BaseEntity {
@@ -93,6 +91,7 @@ public class User extends BaseEntity {
     @Override
     public String toString() {
         return "User{" +
+                "id='" + id + '\'' +
                 "username='" + username + '\'' +
                 ", realname='" + realname + '\'' +
                 ", avatar='" + avatar + '\'' +
@@ -101,6 +100,8 @@ public class User extends BaseEntity {
                 ", status='" + status + '\'' +
                 ", registerIp='" + registerIp + '\'' +
                 ", school='" + school + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
                 '}';
     }
 }
