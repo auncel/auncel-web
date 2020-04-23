@@ -1,26 +1,48 @@
 package dev.yidafu.auncel.web.controller;
 
+import com.github.dozermapper.core.Mapper;
 import dev.yidafu.auncel.web.common.ErrorCodes;
 import dev.yidafu.auncel.web.common.response.PlainResult;
 import dev.yidafu.auncel.web.common.response.PlainResults;
+import dev.yidafu.auncel.web.dal.ContestProblemRepo;
+import dev.yidafu.auncel.web.dal.ProblemRepository;
+import dev.yidafu.auncel.web.dal.SubmissionRepository;
 import dev.yidafu.auncel.web.dal.UserRepository;
-import dev.yidafu.auncel.web.domain.Problem;
-import dev.yidafu.auncel.web.domain.User;
+import dev.yidafu.auncel.web.domain.*;
+import dev.yidafu.auncel.web.domain.dto.ProblemDto;
+import dev.yidafu.auncel.web.domain.dto.ProblemStatusType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/problem")
 public class ProblemController {
+    static Log logger = LogFactory.getLog(ProblemController.class);
+
+    @Autowired
+    Mapper mapper;
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ProblemRepository problemRepository;
+
+    @Autowired
+    ContestProblemRepo contestProblemRepo;
+
+    @Autowired
+    SubmissionRepository submissionRepository;
 
     @GetMapping("/getByUser")
     public PlainResult<List<Problem>> getByUser(@RequestParam("userId") Long userId) {
@@ -33,4 +55,38 @@ public class ProblemController {
 
         return PlainResults.success(problems, "获取数据成功");
     }
+
+    @GetMapping()
+    public PlainResult<List<ProblemDto>> getAll(@RequestParam(value = "contestId", defaultValue = "1") long contestId, HttpSession session) {
+        List<ContestProblem> contestProblems = contestProblemRepo.findAllByContest_Id(contestId);
+        logger.info("[List<ContestProblem>]" + contestProblems);
+
+        // FIXME: 性能优化
+        User user = (User) session.getAttribute("user");
+        List<ProblemDto>  problemDtos = contestProblems.stream()
+                .map(contestProblem -> {
+                    Problem problem = contestProblem.getProblem();
+                    submissionRepository.getFirstByProblem(problem);
+                    ProblemDto problemDto = mapper.map(problem, ProblemDto.class);
+                    if (user != null) {
+                        Submission submission = submissionRepository.selectByProblemIdAndUserId(problem.getId(), user.getId());
+                        if (submission != null) {
+                            if (submission.getStatus() == SubmissionStatus.ACCEPT) {
+                                problemDto.setStatus(ProblemStatusType.ACCEPTED);
+                            } else if(submission.getStatus() == SubmissionStatus.WRONG_ANWSER
+                                || submission.getStatus() == SubmissionStatus.SYNTAX_ERROR
+                            ) {
+                                problemDto.setStatus(ProblemStatusType.WRONG_ANSWER);
+                            } else {
+                                problemDto.setStatus(ProblemStatusType.WORKING_ON);
+                            }
+                        }
+                    }
+                    logger.info("[var ProblemDto]" + problemDto);
+                    return problemDto;
+                })
+                .collect(Collectors.toList());
+        return PlainResults.success(problemDtos, "获取题库成功");
+    }
 }
+

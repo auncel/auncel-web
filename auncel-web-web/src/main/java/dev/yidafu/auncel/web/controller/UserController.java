@@ -5,6 +5,9 @@ import dev.yidafu.auncel.web.common.ErrorCodes;
 import dev.yidafu.auncel.web.common.md5.MD5Util;
 import dev.yidafu.auncel.web.common.response.PlainResult;
 import dev.yidafu.auncel.web.common.response.PlainResults;
+import dev.yidafu.auncel.web.common.utils.UpdateUtil;
+import dev.yidafu.auncel.web.dal.AuthLogRepository;
+import dev.yidafu.auncel.web.domain.AuthLog;
 import dev.yidafu.auncel.web.domain.IdentifierType;
 import dev.yidafu.auncel.web.common.RegisterType;
 import dev.yidafu.auncel.web.domain.dto.UserDto;
@@ -16,10 +19,13 @@ import dev.yidafu.auncel.web.domain.User;
 import dev.yidafu.auncel.web.domain.UserAuth;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.Optional;
 
 @RestController()
 @RequestMapping("/user")
@@ -35,7 +41,18 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    AuthLogRepository authLogRepository;
 
+    @GetMapping
+    public PlainResult<UserDto> getInfo(@RequestParam("id") Long userId, HttpSession session) {
+        logger.info("get user by id: " + userId);
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            return PlainResults.success(mapper.map(user, UserDto.class), "获取用户信息成功");
+        }
+        return PlainResults.error(ErrorCodes.USER_NOT_EXIST, "用户不存在");
+    }
 
     @PostMapping("/login")
     public PlainResult<UserDto> login(@RequestBody UserRequestDto userDTO, HttpSession session){
@@ -47,6 +64,13 @@ public class UserController {
                 User user = userAuthIfExist.getAuthUser();
                 logger.info("登录成功：" + user);
                 session.setAttribute("user", user);
+                AuthLog authLog = new AuthLog();
+                authLog.setTitle("正常登录");
+                authLog.setLoginIp(Utils.getIpAddr());
+                String logContent = "用户: " + user.getUsername() + "(" + user.getRealname()+ ") 成功登录";
+                authLog.setContent(logContent);
+                authLog.setLogUser(user);
+                authLogRepository.save(authLog);
                 logger.info("Session 写入成功");
                 return PlainResults.success(mapper.map(user, UserDto.class), ErrorCodes.LOGIN_SUCCESS, "登录成功");
             } else {
@@ -108,26 +132,20 @@ public class UserController {
         return PlainResults.error(ErrorCodes.USER_NOT_EXIST, "用户不存在");
     }
 
-    @GetMapping
-    public PlainResult<UserDto> getInfo(@RequestParam("id") Long userId, HttpSession session) {
-        logger.info("get user by id: " + userId);
-        User user = (User) session.getAttribute("user");
-        if (user != null) {
-            return PlainResults.success(mapper.map(user, UserDto.class), "获取用户信息成功");
-        }
-        return PlainResults.error(ErrorCodes.USER_NOT_EXIST, "用户不存在");
-    }
-
     @PutMapping
-    public  PlainResult<Boolean> update(@RequestBody UserDto userDto) {
-        User user = new User();
-        user.setId(userDto.getId());
-        user.setUsername(userDto.getUsername());
-        user.setRealname(userDto.getRealname());
-        user.setSlogan(userDto.getSlogan());
-        user.setSchool(userDto.getSchool());
-        logger.info("[var User] " + user);
+    public  PlainResult<Boolean> update(@RequestBody UserDto userDto, HttpSession session) {
+        Optional<User> optional = userRepository.findById(userDto.getId());
+        if (!optional.isPresent()) {
+            return PlainResults.error(ErrorCodes.ILLEGAL_USER_ID, "用户 ID 不正确");
+        }
+        User user = optional.get();
+
+        logger.info("[var User][before copy properties] " + user);
+        BeanUtils.copyProperties(userDto, user, UpdateUtil.getNullPropertyNames(userDto));
+
         userRepository.save(user);
+        session.setAttribute("user", user);
+        logger.info("更新 Session" + user);
         return PlainResults.success(true, "更新成功");
     }
 }

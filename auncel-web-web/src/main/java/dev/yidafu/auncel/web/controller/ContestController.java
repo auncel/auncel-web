@@ -4,12 +4,15 @@ import com.github.dozermapper.core.Mapper;
 import dev.yidafu.auncel.web.common.ErrorCodes;
 import dev.yidafu.auncel.web.common.response.PlainResult;
 import dev.yidafu.auncel.web.common.response.PlainResults;
+import dev.yidafu.auncel.web.dal.ContestRepository;
 import dev.yidafu.auncel.web.dal.UserRepository;
 import dev.yidafu.auncel.web.domain.Contest;
+import dev.yidafu.auncel.web.domain.Problem;
 import dev.yidafu.auncel.web.domain.User;
 import dev.yidafu.auncel.web.domain.UserContest;
 import dev.yidafu.auncel.web.domain.dto.ContestDto;
 import dev.yidafu.auncel.web.domain.dto.UserContestDto;
+import dev.yidafu.auncel.web.domain.dto.UserDto;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,9 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/contest")
 public class ContestController {
+    @Autowired
+    ContestRepository contestRepository;
+
     public static Log logger = LogFactory.getLog(ContestController.class);
 
     @Autowired
@@ -54,6 +60,17 @@ public class ContestController {
                     return userContestDto;
                 }).collect(Collectors.toList());
         return PlainResults.success(userContestDtos, "获取竞赛列表成功");
+    }
+
+    @GetMapping
+    public PlainResult<List<ContestDto>> getAll() {
+        List<Contest> contests = contestRepository.findAll();
+        List<ContestDto>  contestDtos = contests.stream().map(contest -> {
+            ContestDto contestDto = mapper.map(contest, ContestDto.class);
+            contestDto.setMaker(mapper.map(contest.getMaker(), UserDto.class));
+            return contestDto;
+        }).collect(Collectors.toList());
+        return PlainResults.success(contestDtos, "获取所有竞赛数据成功");
     }
 
 }
