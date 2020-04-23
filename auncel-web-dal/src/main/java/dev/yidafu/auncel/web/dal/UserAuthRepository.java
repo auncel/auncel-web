@@ -1,5 +1,6 @@
 package dev.yidafu.auncel.web.dal;
 
+import dev.yidafu.auncel.web.domain.User;
 import dev.yidafu.auncel.web.domain.UserAuth;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -8,4 +9,6 @@ public interface UserAuthRepository extends JpaRepository<UserAuth, Long> {
     UserAuth getOne(Long aLong);
 
     UserAuth findByIdentityTypeAndIdentifier(String indentityType, String indentifier);
+
+    UserAuth findByAuthUserAndIdentityType(User user, String identityType);
 }
