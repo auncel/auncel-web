@@ -34,6 +34,8 @@ public class ContestDto implements Serializable {
 
     private String invitaionCode;
 
+    private UserDto maker;
+
     private Date createdAt;
 
     private Date updatedAt;

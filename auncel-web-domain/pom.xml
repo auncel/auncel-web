@@ -67,6 +67,8 @@
 						<class>dev.yidafu.auncel.web.domain.dto.UserRequestDto</class>
 						<class>dev.yidafu.auncel.web.domain.dto.ContestDto</class>
 						<class>dev.yidafu.auncel.web.domain.dto.ProblemDto</class>
+						<class>dev.yidafu.auncel.web.domain.dto.AuthLogDto</class>
+						<class>dev.yidafu.auncel.web.domain.dto.UserAuthDto</class>
 					</classes>
 					<outputKind>module</outputKind>
 				</configuration>

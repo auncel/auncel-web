@@ -30,6 +30,11 @@ public class ProblemDto implements Serializable {
 
     private int stars;
 
+    /**
+     * 额外属性，用户是否做过
+     */
+    private ProblemStatusType status = ProblemStatusType.NONE;
+
     private ProblemDifficulty difficulty;
 
     private int acceptance = 0;
