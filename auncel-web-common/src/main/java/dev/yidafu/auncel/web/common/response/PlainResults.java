@@ -1,5 +1,7 @@
 package dev.yidafu.auncel.web.common.response;
 
+import dev.yidafu.auncel.web.common.exception.ResponseCode;
+
 public class PlainResults {
 
     public static <T> PlainResult<T> success(T data) {
@@ -14,6 +16,11 @@ public class PlainResults {
 
     public static PlainResult error(Integer code, String msg) {
         PlainResult result = new PlainResult(false, null, code, msg);
+        return result;
+    }
+
+    public static PlainResult error(ResponseCode responseCode) {
+        PlainResult result = new PlainResult(false, null, responseCode.getCode(), responseCode.getMsg());
         return result;
     }
 

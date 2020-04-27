@@ -14,6 +14,7 @@ public class ErrorCodes {
     public static final int PASSWORD_ERROR = 10204;
 
     public static final int USER_NOT_EXIST = 10301;
+    public static final int PROBLOEM_NOT_EXIST = 10302;
 
     public static final int ILLEGAL_USER_ID = 10401;
 
