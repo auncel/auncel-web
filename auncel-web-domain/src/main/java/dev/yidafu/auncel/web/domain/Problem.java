@@ -3,7 +3,6 @@ package dev.yidafu.auncel.web.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,10 +18,10 @@ public class Problem extends BaseEntity {
     private String description;
 
     @Column(columnDefinition = "text")
-    private String qHtml;
+    private String html;
 
     @Column(columnDefinition = "text")
-    private String qCss;
+    private String style;
 
     @Column(columnDefinition = "text")
     private String renderTree;
@@ -79,8 +78,8 @@ public class Problem extends BaseEntity {
         return "Problem{" +
                 "title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", qHtml='" + qHtml + '\'' +
-                ", qCss='" + qCss + '\'' +
+                ", html='" + html + '\'' +
+                ", style='" + style + '\'' +
                 ", renderTree='" + renderTree + '\'' +
                 ", stars=" + stars +
                 ", difficulty=" + difficulty +

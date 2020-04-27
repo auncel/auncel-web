@@ -2,19 +2,17 @@ package dev.yidafu.auncel.web.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Entity
 public class Submission extends BaseEntity {
     @Column
-    private String aHtml;
+    private String html;
 
     @Column
-    private  String aCss;
+    private  String style;
 
     @Enumerated(EnumType.ORDINAL)
     @Column
@@ -41,8 +39,8 @@ public class Submission extends BaseEntity {
     @Override
     public String toString() {
         return "Submission{" +
-                "aHtml='" + aHtml + '\'' +
-                ", aCss=" + aCss +
+                "html='" + html + '\'' +
+                ", style=" + style +
                 ", status='" + status + '\'' +
                 ", score=" + score +
                 ", logs='" + logs + '\'' +

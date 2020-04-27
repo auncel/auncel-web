@@ -22,9 +22,9 @@ public class ProblemDto implements Serializable {
 
     private String description;
 
-    private String qHtml;
+    private String html;
 
-    private String qCss;
+    private String style;
 
     private String renderTree;
 
@@ -43,7 +43,7 @@ public class ProblemDto implements Serializable {
 
     private ProblemAccessType access;
 
-    private List<Tag> tags;
+    private List<TagDto> tags;
 
     private Date createdAt;
 

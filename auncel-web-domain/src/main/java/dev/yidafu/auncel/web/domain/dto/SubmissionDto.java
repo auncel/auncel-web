@@ -16,9 +16,9 @@ import java.util.Date;
 public class SubmissionDto implements Serializable {
     private long id;
 
-    private String aHtml;
+    private String html;
 
-    private  String aCss;
+    private  String style;
 
     private SubmissionStatus status = SubmissionStatus.PADDING;
 
@@ -30,8 +30,7 @@ public class SubmissionDto implements Serializable {
 
     private ProblemDto problem;
 
-//    private User submiter;
-
+    private UserDto submiter;
 
     private Date createdAt;
 
