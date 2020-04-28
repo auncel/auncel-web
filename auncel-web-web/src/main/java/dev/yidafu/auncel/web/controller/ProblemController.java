@@ -2,8 +2,11 @@ package dev.yidafu.auncel.web.controller;
 
 import com.github.dozermapper.core.Mapper;
 import dev.yidafu.auncel.web.common.ErrorCodes;
+import dev.yidafu.auncel.web.common.exception.AuncelBaseException;
+import dev.yidafu.auncel.web.common.exception.ResponseCode;
 import dev.yidafu.auncel.web.common.response.PlainResult;
 import dev.yidafu.auncel.web.common.response.PlainResults;
+import dev.yidafu.auncel.web.common.utils.UpdateUtil;
 import dev.yidafu.auncel.web.dal.ContestProblemRepo;
 import dev.yidafu.auncel.web.dal.ProblemRepository;
 import dev.yidafu.auncel.web.dal.SubmissionRepository;
@@ -13,11 +16,9 @@ import dev.yidafu.auncel.web.domain.dto.ProblemDto;
 import dev.yidafu.auncel.web.domain.dto.ProblemStatusType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -44,6 +45,16 @@ public class ProblemController {
     @Autowired
     SubmissionRepository submissionRepository;
 
+    @GetMapping
+    public PlainResult<ProblemDto> getAll(@RequestParam("id") Long problemId) {
+        Optional<Problem> optionalProblem =  problemRepository.findById(problemId);
+        if (optionalProblem.isPresent()) {
+            ProblemDto problemDto = mapper.map(optionalProblem.get(), ProblemDto.class);
+            return PlainResults.success(problemDto, "获取问题详情成功");
+        }
+        return PlainResults.error(ErrorCodes.USER_NOT_EXIST, "未知错误");
+    }
+
     @GetMapping("/getByUser")
     public PlainResult<List<Problem>> getByUser(@RequestParam("userId") Long userId) {
         Optional<User> optional = userRepository.findById(userId);
@@ -56,14 +67,14 @@ public class ProblemController {
         return PlainResults.success(problems, "获取数据成功");
     }
 
-    @GetMapping()
-    public PlainResult<List<ProblemDto>> getAll(@RequestParam(value = "contestId", defaultValue = "1") long contestId, HttpSession session) {
+    @GetMapping("/getByContest")
+    public PlainResult<List<ProblemDto>> getAllByContest(@RequestParam(value = "contestId", defaultValue = "1") long contestId, HttpSession session) {
         List<ContestProblem> contestProblems = contestProblemRepo.findAllByContest_Id(contestId);
         logger.info("[List<ContestProblem>]" + contestProblems);
 
         // FIXME: 性能优化
         User user = (User) session.getAttribute("user");
-        List<ProblemDto>  problemDtos = contestProblems.stream()
+        List<ProblemDto> problemDtos = contestProblems.stream()
                 .map(contestProblem -> {
                     Problem problem = contestProblem.getProblem();
                     submissionRepository.getFirstByProblem(problem);
@@ -73,14 +84,16 @@ public class ProblemController {
                         if (submission != null) {
                             if (submission.getStatus() == SubmissionStatus.ACCEPT) {
                                 problemDto.setStatus(ProblemStatusType.ACCEPTED);
-                            } else if(submission.getStatus() == SubmissionStatus.WRONG_ANWSER
-                                || submission.getStatus() == SubmissionStatus.SYNTAX_ERROR
+                            } else if (submission.getStatus() == SubmissionStatus.WRONG_ANWSER
+                                    || submission.getStatus() == SubmissionStatus.SYNTAX_ERROR
                             ) {
                                 problemDto.setStatus(ProblemStatusType.WRONG_ANSWER);
                             } else {
                                 problemDto.setStatus(ProblemStatusType.WORKING_ON);
                             }
                         }
+                    } else {
+                        problemDto.setStatus(ProblemStatusType.NONE);
                     }
                     logger.info("[var ProblemDto]" + problemDto);
                     return problemDto;
@@ -88,5 +101,23 @@ public class ProblemController {
                 .collect(Collectors.toList());
         return PlainResults.success(problemDtos, "获取题库成功");
     }
+
+    @PutMapping
+    public PlainResult<Boolean> updateProblem(@RequestBody ProblemDto problemDto) {
+        Optional<Problem> optionalProblem = problemRepository.findById(problemDto.getId());
+        if (!optionalProblem.isPresent()) {
+            throw new AuncelBaseException(ResponseCode.PROBLOEM_NOT_EXIST);
+        }
+        Problem problem = optionalProblem.get();
+
+        logger.info("[var Problem][before copy properties]" + problem);
+        BeanUtils.copyProperties(problemDto, problem, UpdateUtil.getNullPropertyNames(problemDto));
+        logger.info("[var Problem][after copy properties]" + problem);
+
+        problemRepository.save(problem);
+        return PlainResults.success(true, "更新问题成功");
+    }
+
 }
+
 
