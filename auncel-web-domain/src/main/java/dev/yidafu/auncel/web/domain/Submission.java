@@ -22,6 +22,9 @@ public class Submission extends BaseEntity {
     private int score = 0;
 
     @Column(columnDefinition = "text")
+    private String renderTree;
+
+    @Column(columnDefinition = "text")
     private String logs;
 
     @Column(columnDefinition = "text")
@@ -43,6 +46,7 @@ public class Submission extends BaseEntity {
                 ", style=" + style +
                 ", status='" + status + '\'' +
                 ", score=" + score +
+                ", renderTree=" + renderTree +
                 ", logs='" + logs + '\'' +
                 ", screenshot='" + screenshot + '\'' +
                 '}';

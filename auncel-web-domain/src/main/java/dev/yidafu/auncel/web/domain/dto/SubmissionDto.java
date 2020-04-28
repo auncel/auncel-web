@@ -28,6 +28,8 @@ public class SubmissionDto implements Serializable {
 
     private String screenshot;
 
+    private String renderTree;
+
     private ProblemDto problem;
 
     private UserDto submiter;
