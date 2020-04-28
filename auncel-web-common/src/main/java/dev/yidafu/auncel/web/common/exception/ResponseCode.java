@@ -13,6 +13,7 @@ public enum  ResponseCode {
 
     USER_NOT_EXIST(ErrorCodes.USER_NOT_EXIST, "该用户不存在"),
     PROBLOEM_NOT_EXIST(ErrorCodes.PROBLOEM_NOT_EXIST, "该问题不存在"),
+    SUBMISSION_NOT_EXIST(ErrorCodes.SUBMISSION_NOT_EXIST, "该提交不存在"),
     ILLEGAL_USER_ID(ErrorCodes.ILLEGAL_USER_ID, "非法的用户ID"),
 
     UNKNOWN_FAILED(ErrorCodes.UNKNOWN_FAILED, "未知错误");
