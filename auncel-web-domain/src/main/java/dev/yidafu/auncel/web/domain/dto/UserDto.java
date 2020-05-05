@@ -1,6 +1,6 @@
 package dev.yidafu.auncel.web.domain.dto;
 
-import dev.yidafu.auncel.web.domain.User;
+import dev.yidafu.auncel.web.domain.UserRoleType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto implements Serializable {
+
     private  Long id;
 
     private String username;
@@ -23,7 +24,7 @@ public class UserDto implements Serializable {
 
     private String status;
 
-    private Integer role;
+    private UserRoleType role;
 
     private String registerIp;
 

@@ -34,8 +34,9 @@ public class User extends BaseEntity {
     @Column(name = "slogan", columnDefinition = "text")
     private String slogan;
 
-    @Column(name = "role", columnDefinition = "int")
-    private Integer role;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "role")
+    private UserRoleType role = UserRoleType.ORDINARY;
 
     @Column(name="status")
     private String status;
