@@ -22,7 +22,7 @@ public class ContestScheduledTask {
     /**
      * @fixme 性能优化
      */
-    @Scheduled(fixedDelay = 3000)
+//    @Scheduled(fixedDelay = 3000)
     public  void modifyContestStatus() {
         logger.info("Task modify contest status start");
         List<Contest> contestList = contestRepository.findAll();
