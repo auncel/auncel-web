@@ -14,7 +14,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class UserContestDto implements Serializable {
     private long userId;
+
     private long contestId;
+
     private int totalScore;
 
     private UserContestStatus status;

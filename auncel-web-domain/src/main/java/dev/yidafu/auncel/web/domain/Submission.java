@@ -30,6 +30,12 @@ public class Submission extends BaseEntity {
     @Column(columnDefinition = "text")
     private String screenshot;
 
+    /**
+     * execute time, unit ms
+     */
+    @Column
+    private int exeTime = -1;
+
     @JsonBackReference
     @JoinColumn(name = "problem_id", referencedColumnName = "id", nullable = false, updatable = false)
     @ManyToOne(optional =  false, fetch = FetchType.LAZY, targetEntity = Problem.class)

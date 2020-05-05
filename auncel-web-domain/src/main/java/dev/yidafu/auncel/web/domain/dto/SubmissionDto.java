@@ -30,6 +30,8 @@ public class SubmissionDto implements Serializable {
 
     private String renderTree;
 
+    private int exeTime;
+
     private ProblemDto problem;
 
     private UserDto submiter;
