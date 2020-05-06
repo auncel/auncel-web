@@ -14,6 +14,7 @@ import dev.yidafu.auncel.web.dal.UserRepository;
 import dev.yidafu.auncel.web.domain.*;
 import dev.yidafu.auncel.web.domain.dto.ProblemDto;
 import dev.yidafu.auncel.web.domain.dto.ProblemStatusType;
+import dev.yidafu.auncel.web.snippet.CommonSnippet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeanUtils;
@@ -45,8 +46,24 @@ public class ProblemController {
     @Autowired
     SubmissionRepository submissionRepository;
 
+    @Autowired
+    CommonSnippet snippet;
+
     @GetMapping
-    public PlainResult<ProblemDto> getAll(@RequestParam("id") Long problemId) {
+    public PlainResult<List<ProblemDto>> getAll(HttpSession session) {
+//        boolean isAmdin = snippet.getCurrentUser(session).getRole() == UserRoleType.ADMIN;
+        if (true) {
+            List<Problem> problemList =  problemRepository.findAll();
+            List<ProblemDto> problemDtoList = problemList.stream()
+                    .map(problem ->  mapper.map(problem, ProblemDto.class))
+                    .collect(Collectors.toList());
+            return PlainResults.success(problemDtoList, "获取所有问题成功");
+        }
+        return PlainResults.error(ResponseCode.PERMISSION_ERROR);
+    }
+
+    @GetMapping("/getById")
+    public PlainResult<ProblemDto> getById(@RequestParam("id") Long problemId) {
         Optional<Problem> optionalProblem =  problemRepository.findById(problemId);
         if (optionalProblem.isPresent()) {
             ProblemDto problemDto = mapper.map(optionalProblem.get(), ProblemDto.class);
@@ -118,6 +135,24 @@ public class ProblemController {
         return PlainResults.success(true, "更新问题成功");
     }
 
-}
+    @PostMapping
+    public PlainResult<Boolean> createProblem(@RequestBody ProblemDto problemDto) {
+        Problem problem = new Problem();
 
+        logger.info("[var Problem][before copy properties]" + problem);
+        BeanUtils.copyProperties(problemDto, problem, UpdateUtil.getNullPropertyNames(problemDto));
+        logger.info("[var Problem][after copy properties]" + problem);
+
+        problemRepository.save(problem);
+        return PlainResults.success(true, "创建问题成功");
+    }
+
+    @DeleteMapping
+    public PlainResult<Boolean> removeProblemById(@RequestBody ProblemDto problemDto) {
+        logger.info("delete Problem" + problemDto);
+        Problem problem = problemRepository.getOne(problemDto.getId());
+        problemRepository.delete(problem);
+        return PlainResults.success(true, "删除问题成果");
+    }
+}
 

@@ -19,5 +19,7 @@ public class ErrorCodes {
 
     public static final int ILLEGAL_USER_ID = 10401;
 
+    public static final int PERMISSION_ERROR = 10501;
+
     public static final int UNKNOWN_FAILED = 99999;
 }

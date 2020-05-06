@@ -16,6 +16,8 @@ public enum  ResponseCode {
     SUBMISSION_NOT_EXIST(ErrorCodes.SUBMISSION_NOT_EXIST, "该提交不存在"),
     ILLEGAL_USER_ID(ErrorCodes.ILLEGAL_USER_ID, "非法的用户ID"),
 
+    PERMISSION_ERROR(ErrorCodes.PERMISSION_ERROR, "您没有权限访问"),
+
     UNKNOWN_FAILED(ErrorCodes.UNKNOWN_FAILED, "未知错误");
     private int code;
     private String msg;
