@@ -13,10 +13,12 @@ import java.util.List;
 public interface SubmissionRepository extends JpaRepository<Submission, Long> {
 
     // https://blog.csdn.net/liuchuanhong1/article/details/69950886
-    @Query(value = "SELECT id, created_at, updated_at, style, html, logs, problem_id, score, screenshot, status, submiter_id FROM submission WHERE problem_id=:problem_id AND submiter_id=:submiter_id LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT id, created_at, updated_at, style, html, exe_time, logs, problem_id, score, screenshot, status, submiter_id FROM submission WHERE problem_id=:problem_id AND submiter_id=:submiter_id LIMIT 1", nativeQuery = true)
     public Submission selectByProblemIdAndUserId(@Param("problem_id") Long ProblmeId, @Param("submiter_id") Long userId);
 
     public Submission getFirstByProblem(Problem problem);
 
     public List<Submission> findAllBySubmiterAndProblem(User submiter, Problem problem);
+
+    public List<Submission> findAllBySubmiter(User submiter);
 }

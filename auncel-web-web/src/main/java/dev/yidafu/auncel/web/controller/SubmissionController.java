@@ -23,7 +23,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -82,6 +84,20 @@ public class SubmissionController {
 
         logger.info("[var List<SubmissionDto>] " + submissionDtos);
         return PlainResults.success(submissionDtos, "获取提交数据成功");
+    }
+
+    @GetMapping("/getHeatMap")
+    public PlainResult<Map<String, Integer>> getHeatMap(@RequestParam("userId")  long userId) {
+        User submiter = snippet.getUser(userId);
+        List<Submission> submissionList = submissionRepository.findAllBySubmiter(submiter);
+        logger.info("[getHeatMap][var List<Submission>]" + submissionList);
+        Map<String, Integer> timestamp = new HashMap();
+        submissionList
+                .forEach(submission -> {
+                    String key = Long.toString(submission.getCreatedAt().getTime() / 1000);
+                    timestamp.compute(key, (k, v) -> v == null ? 1 : v + 1);
+                });
+        return PlainResults.success(timestamp);
     }
 
     @PostMapping
