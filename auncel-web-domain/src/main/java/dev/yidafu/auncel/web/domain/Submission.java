@@ -37,12 +37,12 @@ public class Submission extends BaseEntity {
     private int exeTime = -1;
 
     @JsonBackReference
-    @JoinColumn(name = "problem_id", referencedColumnName = "id", nullable = false, updatable = false)
-    @ManyToOne(optional =  false, fetch = FetchType.LAZY, targetEntity = Problem.class)
+    @JoinColumn(name = "problem_id", referencedColumnName = "id")
+    @ManyToOne( fetch = FetchType.LAZY, targetEntity = Problem.class)
     private Problem problem;
 
-    @JoinColumn(name = "submiter_id", referencedColumnName = "id", nullable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, targetEntity = User.class)
+    @JoinColumn(name = "submiter_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
     private User submiter;
 
     @Override

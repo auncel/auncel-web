@@ -18,8 +18,8 @@ public class AuthLog extends BaseEntity {
     private String loginIp = "0.0.0.0";
 
     @JsonBackReference
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
-    @ManyToOne(optional =  false, fetch = FetchType.LAZY,targetEntity = User.class)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY,targetEntity = User.class)
     private User logUser;
 
     @Column(name = "title")

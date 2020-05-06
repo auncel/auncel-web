@@ -38,8 +38,8 @@ public class Contest extends BaseEntity {
     private String invitaionCode;
 
     @JsonBackReference
-    @JoinColumn(name = "maker_id", referencedColumnName = "id", nullable = false, updatable = false)
-    @ManyToOne(optional =  false, fetch = FetchType.LAZY, targetEntity = User.class)
+    @JoinColumn(name = "maker_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
     private User maker;
 
 //    @JsonManagedReference

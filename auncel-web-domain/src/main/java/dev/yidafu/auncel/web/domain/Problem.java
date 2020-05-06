@@ -60,13 +60,13 @@ public class Problem extends BaseEntity {
 
 
     @JsonManagedReference
-    @JoinColumn(name = "problem_id")
+    @JoinColumn(name = "problem_id", nullable = true)
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
     private List<Submission> submissions = new ArrayList<>();
 
     @JsonBackReference
-    @JoinColumn(name = "maker_id", referencedColumnName = "id", nullable = false, updatable = false)
-    @ManyToOne(optional =  false, fetch = FetchType.LAZY, targetEntity = User.class)
+    @JoinColumn(name = "maker_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
     private User maker;
 
     @JsonBackReference

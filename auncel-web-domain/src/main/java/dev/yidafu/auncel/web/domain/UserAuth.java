@@ -17,8 +17,8 @@ import javax.persistence.*;
 public class UserAuth extends BaseEntity {
 
     @JsonBackReference
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, updatable = false)
-    @ManyToOne(optional =  false, fetch = FetchType.LAZY, targetEntity = User.class)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
     private User authUser;
 
     /**
