@@ -84,7 +84,6 @@ public class User extends BaseEntity {
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
     private List<Notification> notifications;
 
-
     @JsonManagedReference
     @OneToMany(mappedBy = "user",cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
     private List<UserContest> userContests;

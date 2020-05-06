@@ -35,7 +35,7 @@ public class Contest extends BaseEntity {
     private ContestAccessType access = ContestAccessType.PUBLIC;
 
     @Column(name = "invitaion_code")
-    private String invitaionCode;
+    private String invitaionCode = Integer.toHexString((int) (Math.random() * 1000)) + Long.toHexString(1) + Integer.toHexString((int) (Math.random() * 1000));
 
     @JsonBackReference
     @JoinColumn(name = "maker_id", referencedColumnName = "id")

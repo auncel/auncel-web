@@ -43,6 +43,8 @@ public class ProblemDto implements Serializable {
 
     private ProblemAccessType access;
 
+    private UserDto maker;
+
     private List<TagDto> tags;
 
     private Date createdAt;
