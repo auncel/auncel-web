@@ -27,7 +27,7 @@ public class CommonSnippet {
     public User getCurrentUser(HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            return user;
+            return userRepository.findById(user.getId()).get();
         }
         throw new AuncelBaseException(ResponseCode.USER_NOT_EXIST);
     };

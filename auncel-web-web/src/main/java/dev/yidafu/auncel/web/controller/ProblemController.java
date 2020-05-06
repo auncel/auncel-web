@@ -51,11 +51,12 @@ public class ProblemController {
 
     @GetMapping
     public PlainResult<List<ProblemDto>> getAll(HttpSession session) {
-//        boolean isAmdin = snippet.getCurrentUser(session).getRole() == UserRoleType.ADMIN;
-        if (true) {
-            List<Problem> problemList =  problemRepository.findAll();
+        User maker = snippet.getCurrentUser(session);
+        boolean isAmdin = maker.getRole() == UserRoleType.ADMIN || maker.getRole() == UserRoleType.SUPER_USER;
+        if (isAmdin) {
+            List<Problem> problemList =  problemRepository.findAllByMakerOrAccess(maker, ProblemAccessType.PUBLIC);
             List<ProblemDto> problemDtoList = problemList.stream()
-                    .map(problem ->  mapper.map(problem, ProblemDto.class))
+                    .map(problem -> mapper.map(problem, ProblemDto.class))
                     .collect(Collectors.toList());
             return PlainResults.success(problemDtoList, "获取所有问题成功");
         }
