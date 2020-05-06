@@ -45,8 +45,7 @@ public class UserController {
     AuthLogRepository authLogRepository;
 
     @GetMapping
-    public PlainResult<UserDto> getInfo(@RequestParam("id") Long userId, HttpSession session) {
-        logger.info("get user by id: " + userId);
+    public PlainResult<UserDto> getInfo(HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             return PlainResults.success(mapper.map(user, UserDto.class), "获取用户信息成功");
