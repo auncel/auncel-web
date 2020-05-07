@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @ToString
@@ -32,4 +33,7 @@ public class UserDto implements Serializable {
 
     private String school;
 
+    private Date createdAt;
+
+    private Date updatedAt;
 }

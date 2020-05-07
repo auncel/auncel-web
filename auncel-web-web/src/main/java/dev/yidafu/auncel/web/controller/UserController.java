@@ -2,21 +2,21 @@ package dev.yidafu.auncel.web.controller;
 
 import com.github.dozermapper.core.Mapper;
 import dev.yidafu.auncel.web.common.ErrorCodes;
+import dev.yidafu.auncel.web.common.exception.AuncelBaseException;
+import dev.yidafu.auncel.web.common.exception.ResponseCode;
 import dev.yidafu.auncel.web.common.md5.MD5Util;
 import dev.yidafu.auncel.web.common.response.PlainResult;
 import dev.yidafu.auncel.web.common.response.PlainResults;
 import dev.yidafu.auncel.web.common.utils.UpdateUtil;
 import dev.yidafu.auncel.web.dal.AuthLogRepository;
-import dev.yidafu.auncel.web.domain.AuthLog;
-import dev.yidafu.auncel.web.domain.IdentifierType;
+import dev.yidafu.auncel.web.domain.*;
 import dev.yidafu.auncel.web.common.RegisterType;
 import dev.yidafu.auncel.web.domain.dto.UserDto;
 import dev.yidafu.auncel.web.domain.dto.UserRequestDto;
 import dev.yidafu.auncel.web.common.utils.Utils;
 import dev.yidafu.auncel.web.dal.UserAuthRepository;
 import dev.yidafu.auncel.web.dal.UserRepository;
-import dev.yidafu.auncel.web.domain.User;
-import dev.yidafu.auncel.web.domain.UserAuth;
+import dev.yidafu.auncel.web.snippet.CommonSnippet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeanUtils;
@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController()
 @RequestMapping("/user")
@@ -43,6 +45,9 @@ public class UserController {
 
     @Autowired
     AuthLogRepository authLogRepository;
+
+    @Autowired
+    CommonSnippet snippet;
 
     @GetMapping
     public PlainResult<UserDto> getInfo(HttpSession session) {
@@ -79,6 +84,20 @@ public class UserController {
         }
         logger.info("用户未注册" + userDTO);
         return PlainResults.error(ErrorCodes.NOT_REGISTER, "账号未注册");
+    }
+
+
+    @GetMapping("/list")
+    public PlainResult<List<UserDto>> getUserList(HttpSession session) {
+        User currentUser = snippet.getCurrentUser(session);
+        if (currentUser.getRole() == UserRoleType.SUPER_USER) {
+            List<User> userList = userRepository.findAll();
+            List<UserDto> userDtoList = userList.stream()
+                    .map(user -> mapper.map(user, UserDto.class))
+                    .collect(Collectors.toList());
+            return PlainResults.success(userDtoList, "获取所有用户成功");
+        }
+        throw new AuncelBaseException(ResponseCode.PERMISSION_ERROR);
     }
 
     @PostMapping("/register")
