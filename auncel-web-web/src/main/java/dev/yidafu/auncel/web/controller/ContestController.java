@@ -2,25 +2,23 @@ package dev.yidafu.auncel.web.controller;
 
 import com.github.dozermapper.core.Mapper;
 import dev.yidafu.auncel.web.common.ErrorCodes;
+import dev.yidafu.auncel.web.common.exception.AuncelBaseException;
+import dev.yidafu.auncel.web.common.exception.ResponseCode;
 import dev.yidafu.auncel.web.common.response.PlainResult;
 import dev.yidafu.auncel.web.common.response.PlainResults;
+import dev.yidafu.auncel.web.common.utils.UpdateUtil;
+import dev.yidafu.auncel.web.dal.ContestProblemRepo;
 import dev.yidafu.auncel.web.dal.ContestRepository;
+import dev.yidafu.auncel.web.dal.ProblemRepository;
 import dev.yidafu.auncel.web.dal.UserRepository;
-import dev.yidafu.auncel.web.domain.Contest;
-import dev.yidafu.auncel.web.domain.Problem;
-import dev.yidafu.auncel.web.domain.User;
-import dev.yidafu.auncel.web.domain.UserContest;
-import dev.yidafu.auncel.web.domain.dto.ContestDto;
-import dev.yidafu.auncel.web.domain.dto.UserContestDto;
-import dev.yidafu.auncel.web.domain.dto.UserDto;
+import dev.yidafu.auncel.web.domain.*;
+import dev.yidafu.auncel.web.domain.dto.*;
 import dev.yidafu.auncel.web.snippet.CommonSnippet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -43,6 +41,12 @@ public class ContestController {
 
     @Autowired
     CommonSnippet snippet;
+
+    @Autowired
+    ContestProblemRepo contestProblemRepo;
+
+    @Autowired
+    ProblemRepository problemRepository;
 
     /**
      * 个人详情页
@@ -92,8 +96,57 @@ public class ContestController {
         User maker = snippet.getCurrentUser(session);
         List<Contest> contestList = contestRepository.findAllByMaker(maker);
         List<ContestDto> contestDtoList = contestList.stream()
-                .map(contest -> mapper.map(contest, ContestDto.class))
+                .map(contest -> {
+                    ContestDto contestDto = mapper.map(contest, ContestDto.class);
+                    List<ProblemDto> problemDtoList = contest.getContestProblems().stream()
+                            .map(contestProblem -> {
+                                Problem problem = contestProblem.getProblem();
+                                 ProblemDto problemDto = mapper.map(problem, ProblemDto.class);
+                               return problemDto;
+                            }).collect(Collectors.toList());
+                    contestDto.setProblems(problemDtoList);
+                    return contestDto;
+                })
                 .collect(Collectors.toList());
         return PlainResults.success(contestDtoList, "获取竞赛数据成功");
     }
+
+    @PostMapping
+    public PlainResult<Boolean> createContest(@RequestBody ContestRequestDto contestRequestDto, HttpSession session) {
+        Contest contest = new Contest();
+
+        logger.info("[var Contest][before copy properties]" + contest);
+        BeanUtils.copyProperties(contestRequestDto, contest, UpdateUtil.getNullPropertyNames(contestRequestDto));
+        logger.info("[var Contest][after copy properties]" + contest);
+        User currentUser = snippet.getCurrentUser(session);
+        contest.setMaker(currentUser);
+        Contest savedContest = contestRepository.save(contest);
+        long[] problemIds = contestRequestDto.getProblems();
+        for (long id : problemIds) {
+            ContestProblem contestProblem = new ContestProblem();
+            contestProblem.setProblem(problemRepository.findById(id).get());
+            contestProblem.setContest(savedContest);
+            contestProblemRepo.save(contestProblem);
+        }
+
+        return PlainResults.success(true, "创建竞赛成功");
+    }
+
+    @PutMapping
+    public PlainResult<Boolean> updateProblem(@RequestBody ContestRequestDto contestDto) {
+        Optional<Contest> optionalContest = contestRepository.findById(contestDto.getId());
+        if (!optionalContest.isPresent()) {
+            throw new AuncelBaseException(ResponseCode.PROBLOEM_NOT_EXIST);
+        }
+
+        Contest problem = optionalContest.get();
+
+        logger.info("[var Contest][before copy properties]" + problem);
+        BeanUtils.copyProperties(contestDto, problem, UpdateUtil.getNullPropertyNames(contestDto));
+        logger.info("[var Contest][after copy properties]" + problem);
+
+        contestRepository.save(problem);
+        return PlainResults.success(true, "更新问题成功");
+    }
+
 }
