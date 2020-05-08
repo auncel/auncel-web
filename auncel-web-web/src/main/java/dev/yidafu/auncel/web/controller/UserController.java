@@ -11,6 +11,7 @@ import dev.yidafu.auncel.web.common.utils.UpdateUtil;
 import dev.yidafu.auncel.web.dal.AuthLogRepository;
 import dev.yidafu.auncel.web.domain.*;
 import dev.yidafu.auncel.web.common.RegisterType;
+import dev.yidafu.auncel.web.domain.dto.UserAdminDto;
 import dev.yidafu.auncel.web.domain.dto.UserDto;
 import dev.yidafu.auncel.web.domain.dto.UserRequestDto;
 import dev.yidafu.auncel.web.common.utils.Utils;
@@ -101,7 +102,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public PlainResult<UserDto> register(@RequestBody UserRequestDto userRequestDto, HttpSession session) {
+    public PlainResult<List<UserDto>> register(@RequestBody UserRequestDto userRequestDto, HttpSession session) {
         logger.info("邮箱注册:  " + userRequestDto);
         UserAuth userAuthIfExist = userAuthRepository.findByIdentityTypeAndIdentifier(
                 IdentifierType.EMAIL,
@@ -130,22 +131,20 @@ public class UserController {
         // TODO: send verified email
 
         session.setAttribute("user", user);
-        return PlainResults.success(mapper.map(user, UserDto.class), "注册用户成功");
+        return this.getUserList(session);
     }
 
     @PutMapping(value = "/u/profile")
-    public PlainResult<Boolean> updateProfile(UserDto userDTO) {
-        Long userId = userDTO.getId();
-        Boolean userExist = userRepository.existsById(userId);
+    public PlainResult<List<UserDto>> updateProfile(@RequestBody  UserDto userDto, HttpSession session) {
+        Long userId = userDto.getId();
+        boolean userExist = userRepository.existsById(userId);
         if (userExist) {
-            User userWillUpdate = new User();
-            userWillUpdate.setId(userId);
-            userWillUpdate.setUsername(userDTO.getUsername());
-            userWillUpdate.setRealname(userDTO.getRealname());
-            userWillUpdate.setSlogan(userDTO.getSlogan());
-            userWillUpdate.setSchool(userDTO.getSchool());
+            User userWillUpdate = snippet.getUser(userId);
+
+            BeanUtils.copyProperties(userDto, userWillUpdate, UpdateUtil.getNullPropertyNames(userDto));
+
             userRepository.save(userWillUpdate);
-            PlainResults.success(true, "用户信息更新成功");
+            return this.getUserList(session);
         }
         return PlainResults.error(ErrorCodes.USER_NOT_EXIST, "用户不存在");
     }
@@ -165,5 +164,59 @@ public class UserController {
         session.setAttribute("user", user);
         logger.info("更新 Session" + user);
         return PlainResults.success(true, "更新成功");
+    }
+
+    @PostMapping("/admin")
+    PlainResult<List<UserDto>> adminCreate(@RequestBody UserRequestDto userRequestDto, HttpSession session) {
+        logger.info("邮箱注册:  " + userRequestDto);
+        UserAuth userAuthIfExist = userAuthRepository.findByIdentityTypeAndIdentifier(
+                IdentifierType.EMAIL,
+                userRequestDto.getEmail()
+        );
+        User userIfExsit = userRepository.findByUsername(userRequestDto.getUsername());
+        if (userAuthIfExist != null || userIfExsit != null) {
+            return PlainResults.error(ErrorCodes.ALREADY_REGISTE, "该用户已经注册过了");
+        }
+
+        User user = new User();
+        user.setUsername(userRequestDto.getUsername());
+        user.setRegisterIp(Utils.getIpAddr());
+        user.setStatus("normal");
+        UserAuth userAuth = new UserAuth();
+        userAuth.setIdentityType(IdentifierType.EMAIL);
+        userAuth.setIdentifier(userRequestDto.getEmail());
+        userAuth.setCredential(userRequestDto.getPassword());
+        userAuth.setVerifiled("verifiled");
+        userRepository.save(user);
+        logger.info("userRepository.save(" + user + ")");
+
+        userAuth.setAuthUser(user);
+        userAuthRepository.save(userAuth);
+        logger.info("userAuthRepository.save(" + userAuth + ")");
+
+        // TODO: send verified email
+
+        return this.getUserList(session);
+    }
+
+    @PutMapping("/admin")
+    PlainResult<List<UserDto>> adminUpdate(@RequestBody UserAdminDto userAdminDto, HttpSession session) {
+        UserDto userDto = mapper.map(userAdminDto, UserDto.class);
+
+        Optional<User> optional = userRepository.findById(userDto.getId());
+        if (!optional.isPresent()) {
+            return PlainResults.error(ErrorCodes.ILLEGAL_USER_ID, "用户 ID 不正确");
+        }
+        User user = optional.get();
+
+        BeanUtils.copyProperties(userDto, user, UpdateUtil.getNullPropertyNames(userDto));
+
+        User savedUser = userRepository.save(user);
+
+        UserAuth userAuth = userAuthRepository.findByAuthUserAndIdentityType(savedUser, IdentifierType.EMAIL);
+
+        userAuth.setIdentifier(userAdminDto.getPassword());
+
+        return getUserList(session);
     }
 }

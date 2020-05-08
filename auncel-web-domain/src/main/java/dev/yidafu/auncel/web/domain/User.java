@@ -99,4 +99,9 @@ public class User extends BaseEntity {
                 ", updatedAt='" + updatedAt + '\'' +
                 '}';
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+        this.avatar = "http://www.gravatar.com/avatar/" + this.username + "?s=200&d=identicon&r=PG";
+    }
 }
