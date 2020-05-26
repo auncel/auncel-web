@@ -37,9 +37,9 @@ insert into tag (id, value) values (2, "box-model");
 insert into problem_tag (tag_id, problem_id) values (1, 1);
 insert into problem_tag (tag_id, problem_id) values (2, 1);
 
-insert into user_contest (duration, status, total_score, contest_id, user_id) VALUES (234235, 0, 89, 1, 2);
-insert into user_contest (duration, status, total_score, contest_id, user_id) VALUES (234235, 0, 89, 2, 2);
-insert into user_contest (duration, status, total_score, contest_id, user_id) VALUES (234235, 0, 89, 3, 2);
+insert into user_contest (duration, status, total_score, contest_id, user_id) VALUES (234235, 0, 89, 1, 3);
+insert into user_contest (duration, status, total_score, contest_id, user_id) VALUES (234235, 0, 89, 2, 3);
+insert into user_contest (duration, status, total_score, contest_id, user_id) VALUES (234235, 0, 89, 3, 3);
 
 insert into `submission`(`id`, `style`, `html`, `logs`, `score`, `screenshot`, `status`, `problem_id`, `submiter_id`, `exe_time`) VALUES (1, 'div{color: #fff;}', '<div></ div>', '[]', 50, 'http://cs.nyu.edu/courses/fall15/CSCI-UA.0004-002/images/html_css_js.png', 0, 1, 3, -1);
 insert into `submission`(`id`, `style`, `html`, `logs`, `score`, `screenshot`, `status`, `problem_id`, `submiter_id`, `exe_time`) VALUES (2, 'div{color: #fff;}', '<div></ div>', '[]', 50, 'http://cs.nyu.edu/courses/fall15/CSCI-UA.0004-002/images/html_css_js.png', 4, 2, 3, -1);

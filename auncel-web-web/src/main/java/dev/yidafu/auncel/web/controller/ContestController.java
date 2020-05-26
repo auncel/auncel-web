@@ -7,10 +7,7 @@ import dev.yidafu.auncel.web.common.exception.ResponseCode;
 import dev.yidafu.auncel.web.common.response.PlainResult;
 import dev.yidafu.auncel.web.common.response.PlainResults;
 import dev.yidafu.auncel.web.common.utils.UpdateUtil;
-import dev.yidafu.auncel.web.dal.ContestProblemRepo;
-import dev.yidafu.auncel.web.dal.ContestRepository;
-import dev.yidafu.auncel.web.dal.ProblemRepository;
-import dev.yidafu.auncel.web.dal.UserRepository;
+import dev.yidafu.auncel.web.dal.*;
 import dev.yidafu.auncel.web.domain.*;
 import dev.yidafu.auncel.web.domain.dto.*;
 import dev.yidafu.auncel.web.snippet.CommonSnippet;
@@ -47,6 +44,9 @@ public class ContestController {
 
     @Autowired
     ProblemRepository problemRepository;
+
+    @Autowired
+    UserContestRepo userContestRepo;
 
     /**
      * 个人详情页
@@ -109,6 +109,38 @@ public class ContestController {
                 })
                 .collect(Collectors.toList());
         return PlainResults.success(contestDtoList, "获取竞赛数据成功");
+    }
+
+    @GetMapping("/getById")
+    PlainResult<ContestDto> getById(@RequestParam("id") long id) {
+        Optional<Contest> optionalContest = contestRepository.findById(id);
+
+        if (!optionalContest.isPresent()) {
+            throw new AuncelBaseException(ResponseCode.CONTEST_NOT_EXIST);
+        }
+
+        Contest contest = optionalContest.get();
+
+        ContestDto contestDto = mapper.map(contest, ContestDto.class);
+        List<ProblemDto> problemDtoList = contest.getContestProblems().stream()
+                .map(contestProblem -> mapper.map(contestProblem.getProblem(), ProblemDto.class))
+                .collect(Collectors.toList());
+        contestDto.setProblems(problemDtoList);
+
+        return PlainResults.success(contestDto, "获取竞数据成功");
+    }
+
+    @GetMapping("/join")
+    public PlainResult<Boolean> join(@RequestParam("code") String code, HttpSession session) {
+        User currentUser = snippet.getCurrentUser(session);
+        Contest contest =  contestRepository.findOneByInvitaionCode(code);
+
+        UserContest userContest = new UserContest();
+        userContest.setContest(contest);
+        userContest.setUser(currentUser);
+
+        UserContest savedUserContest = userContestRepo.save(userContest);
+        return PlainResults.success(true, "加入竞赛成功");
     }
 
     @PostMapping

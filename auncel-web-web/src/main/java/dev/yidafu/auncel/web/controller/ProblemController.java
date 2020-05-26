@@ -14,6 +14,7 @@ import dev.yidafu.auncel.web.dal.UserRepository;
 import dev.yidafu.auncel.web.domain.*;
 import dev.yidafu.auncel.web.domain.dto.ProblemDto;
 import dev.yidafu.auncel.web.domain.dto.ProblemStatusType;
+import dev.yidafu.auncel.web.domain.dto.SubmissionDto;
 import dev.yidafu.auncel.web.snippet.CommonSnippet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -118,6 +119,22 @@ public class ProblemController {
                 })
                 .collect(Collectors.toList());
         return PlainResults.success(problemDtos, "获取题库成功");
+    }
+
+    @GetMapping("/statistics")
+    public PlainResult<List<SubmissionDto>> statistics(@RequestParam("problemId") long problemId) {
+           Optional<Problem> optionalProblem = problemRepository.findById(problemId);
+           if (!optionalProblem.isPresent()) {
+               throw new AuncelBaseException(ResponseCode.PROBLOEM_NOT_EXIST);
+           }
+           Problem problem = optionalProblem.get();
+
+           List<Submission> submissionList = submissionRepository.findDistinctSubmiterByProblemId(problem.getId());
+           List<SubmissionDto> submissionDtoList = submissionList.stream()
+                   .map(submission -> mapper.map(submission, SubmissionDto.class))
+                   .collect(Collectors.toList());
+
+           return PlainResults.success(submissionDtoList);
     }
 
     @PutMapping

@@ -22,16 +22,16 @@ public class ContestScheduledTask {
     /**
      * @fixme 性能优化
      */
-//    @Scheduled(fixedDelay = 3000)
+    @Scheduled(fixedDelay = 3000)
     public  void modifyContestStatus() {
         logger.info("Task modify contest status start");
         List<Contest> contestList = contestRepository.findAll();
+        long currTime = System.currentTimeMillis();
         contestList.stream()
                 .forEach(contest -> {
-                    if (contest.getStartTime().getTime() > System.currentTimeMillis()) {
+                    if (contest.getStartTime().getTime() < currTime && currTime < contest.getEndTime().getTime()) {
                         contest.setStatus(ContestStatus.RUNNING);
-                    }
-                    if (contest.getEndTime().getTime() > System.currentTimeMillis()) {
+                    } else if (contest.getEndTime().getTime() < currTime) {
                         contest.setStatus(ContestStatus.ENDED);
                     };
                     contestRepository.save(contest);

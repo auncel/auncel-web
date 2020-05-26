@@ -7,7 +7,7 @@ public class MD5Util {
     public static String encode(String password) {
        return encode(password, SALT);
     }
-
+    
     public static String encode(String password, String salt) {
         password = password + salt;
         MessageDigest md5 = null;

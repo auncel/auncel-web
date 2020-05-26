@@ -13,4 +13,5 @@ public interface ProblemRepository  extends JpaRepository<Problem, Long> {
     List<Problem> findAll();
 
     List<Problem> findAllByMakerOrAccess(User maker, ProblemAccessType access);
+
 }

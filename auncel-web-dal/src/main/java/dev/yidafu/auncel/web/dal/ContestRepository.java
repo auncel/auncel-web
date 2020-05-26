@@ -11,4 +11,6 @@ public interface ContestRepository extends JpaRepository<Contest, Long> {
     public List<Contest> findAll();
 
     public List<Contest> findAllByMaker(User maker);
+
+    public Contest findOneByInvitaionCode(String code);
 }
